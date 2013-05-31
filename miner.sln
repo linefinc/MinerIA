@@ -1,0 +1,45 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual C++ Express 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "miner", "miner\miner.vcxproj", "{BCBE9925-195A-4B53-8A81-FFEADFC44D73}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F10A250D-13DF-4C13-8BAE-7D19834AC536} = {F10A250D-13DF-4C13-8BAE-7D19834AC536}
+		{FCCF5786-9EBE-45DF-8D09-EF8575F8E6CE} = {FCCF5786-9EBE-45DF-8D09-EF8575F8E6CE}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libIA", "libIA\libIA.vcxproj", "{F10A250D-13DF-4C13-8BAE-7D19834AC536}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libpathfinding", "libpathfinding\libpathfinding.vcxproj", "{FCCF5786-9EBE-45DF-8D09-EF8575F8E6CE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestPathFinder", "TestPathFinder\TestPathFinder.vcxproj", "{C8D7FAAE-0F6F-4E27-B0EB-0C804CFB1F93}"
+	ProjectSection(ProjectDependencies) = postProject
+		{FCCF5786-9EBE-45DF-8D09-EF8575F8E6CE} = {FCCF5786-9EBE-45DF-8D09-EF8575F8E6CE}
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BCBE9925-195A-4B53-8A81-FFEADFC44D73}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BCBE9925-195A-4B53-8A81-FFEADFC44D73}.Debug|Win32.Build.0 = Debug|Win32
+		{BCBE9925-195A-4B53-8A81-FFEADFC44D73}.Release|Win32.ActiveCfg = Release|Win32
+		{BCBE9925-195A-4B53-8A81-FFEADFC44D73}.Release|Win32.Build.0 = Release|Win32
+		{F10A250D-13DF-4C13-8BAE-7D19834AC536}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F10A250D-13DF-4C13-8BAE-7D19834AC536}.Debug|Win32.Build.0 = Debug|Win32
+		{F10A250D-13DF-4C13-8BAE-7D19834AC536}.Release|Win32.ActiveCfg = Release|Win32
+		{F10A250D-13DF-4C13-8BAE-7D19834AC536}.Release|Win32.Build.0 = Release|Win32
+		{FCCF5786-9EBE-45DF-8D09-EF8575F8E6CE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FCCF5786-9EBE-45DF-8D09-EF8575F8E6CE}.Debug|Win32.Build.0 = Debug|Win32
+		{FCCF5786-9EBE-45DF-8D09-EF8575F8E6CE}.Release|Win32.ActiveCfg = Release|Win32
+		{FCCF5786-9EBE-45DF-8D09-EF8575F8E6CE}.Release|Win32.Build.0 = Release|Win32
+		{C8D7FAAE-0F6F-4E27-B0EB-0C804CFB1F93}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C8D7FAAE-0F6F-4E27-B0EB-0C804CFB1F93}.Debug|Win32.Build.0 = Debug|Win32
+		{C8D7FAAE-0F6F-4E27-B0EB-0C804CFB1F93}.Release|Win32.ActiveCfg = Release|Win32
+		{C8D7FAAE-0F6F-4E27-B0EB-0C804CFB1F93}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
