@@ -68,7 +68,7 @@ bool myMap::CellIsEmpty(int x,int y) const
 void myMap::Render(sf::RenderWindow* window)
 {
 	sf::Vector2u size =  window->getSize();
-	for(int i=0; i < listShape.size(); i++)
+	for(unsigned int i=0; i < listShape.size(); i++)
 	{
 		window->draw(*listShape[i]);
 	}

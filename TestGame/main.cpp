@@ -6,16 +6,18 @@
 #include <SFML/Graphics.hpp>
 // my dev
 #include "myMap.h"
+#include "Miner.h"
+#include "GameObjectManager.h"
 
 using namespace std;
 
 
 int main()
 {
-	
-	// list of shared_ptr to handle sf::shape
-	//vector<shared_ptr<sf::Shape>> ListShape();
-	
+	//inizalizze gameObj
+	//GameObjectManager* gom = GameObjectManager::GetIstance();
+	GameObjectManager* gom = &GameObjectManagerIstance;
+
 	// setup video mode
 	sf::RenderWindow window(sf::VideoMode(600, 600), "Miner works!");
     
@@ -23,7 +25,9 @@ int main()
 	newCirle->setFillColor(sf::Color::Green);
 
 	myMap* map = new myMap(window.getSize().x/ 30,window.getSize().y/ 30);
-
+	//
+	// init maps
+	//
 	map->SetValue(1,7,1);
 	map->SetValue(2,2,1);
 	map->SetValue(2,3,1);
@@ -45,19 +49,34 @@ int main()
 	map->SetValue(5,0,1);
 	map->SetValue(5,1,1);
 	map->SetValue(5,2,1);
-
+	//
+	//
+	//
+	shared_ptr<Miner> pMiner (new Miner(gom->GetNextID()));
+	gom->AddGameObject(pMiner);
+	Miner* myMiner = new Miner(0);
+	myMiner->setPosition(10,10);
+	//
+	//
+	//
     while (window.isOpen())
     {
         sf::Event event;
         while (window.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
+			{
                 window.close();
+			}
         }
 
+		// update
+		myMiner->Update();
+
+		// render
         window.clear();
 		map->Render(&window);
-		window.draw(*newCirle);
+		window.draw(*myMiner);
         window.display();
     }
 

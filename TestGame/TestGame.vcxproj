@@ -41,7 +41,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(SolutionDir)\thirdParty\SFML-2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\thirdParty\SFML-2.0\include;$(solutionDir)\libIA;$(solutionDir)\libpathfinding</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -56,7 +56,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(SolutionDir)\thirdParty\SFML-2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\thirdParty\SFML-2.0\include;$(solutionDir)\libIA;$(solutionDir)\libpathfinding</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -68,14 +68,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="EnterMinAndDIigForNugget.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
+    <ClInclude Include="GoHomeAndSleep.h" />
+    <ClInclude Include="Miner.h" />
+    <ClInclude Include="MoveTo.h" />
     <ClInclude Include="myMap.h" />
+    <ClInclude Include="VisitBankAndDepositGold.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="EnterMinAndDIigForNugget.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
+    <ClCompile Include="GoHomeAndSleep.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Miner.cpp" />
+    <ClCompile Include="MoveTo.cpp" />
     <ClCompile Include="myMap.cpp" />
+    <ClCompile Include="VisitBankAndDepositGold.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
