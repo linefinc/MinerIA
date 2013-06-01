@@ -16,6 +16,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestPathFinder", "TestPathF
 		{FCCF5786-9EBE-45DF-8D09-EF8575F8E6CE} = {FCCF5786-9EBE-45DF-8D09-EF8575F8E6CE}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestGame", "TestGame\TestGame.vcxproj", "{F27B9CD8-01AB-4914-9949-4E464D4A5A8A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -38,6 +40,10 @@ Global
 		{C8D7FAAE-0F6F-4E27-B0EB-0C804CFB1F93}.Debug|Win32.Build.0 = Debug|Win32
 		{C8D7FAAE-0F6F-4E27-B0EB-0C804CFB1F93}.Release|Win32.ActiveCfg = Release|Win32
 		{C8D7FAAE-0F6F-4E27-B0EB-0C804CFB1F93}.Release|Win32.Build.0 = Release|Win32
+		{F27B9CD8-01AB-4914-9949-4E464D4A5A8A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F27B9CD8-01AB-4914-9949-4E464D4A5A8A}.Debug|Win32.Build.0 = Debug|Win32
+		{F27B9CD8-01AB-4914-9949-4E464D4A5A8A}.Release|Win32.ActiveCfg = Release|Win32
+		{F27B9CD8-01AB-4914-9949-4E464D4A5A8A}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
