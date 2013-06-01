@@ -133,7 +133,7 @@ int PathFinder::GetLowerScoreNodeFromOpenSet() const
 {
 	float distanceMin = +999999999.0f; // todo: change with float.MaxValue
 	int indexMin = -1;
-	for(int index = 0; index < OpenSet.size(); index ++)
+	for(unsigned int index = 0; index < OpenSet.size(); index ++)
 	{
 		float d = OpenSet[index].distance;
 		if(distanceMin > d)
