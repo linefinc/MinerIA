@@ -25,6 +25,11 @@ void Miner::Update(void)
 	Thist++;
 	if(pCurrentState != NULL)
 	{
+		pGlobalState->Execute(this);
+	}
+
+	if(pCurrentState != NULL)
+	{
 		pCurrentState->Execute(this);
 	}
 }
@@ -37,4 +42,9 @@ void Miner::ChangeState(State<Miner>* pNewState)
 	pCurrentState->Exit(this);
 	pCurrentState = pNewState;
 	pNewState->Enter(this);
+}
+
+void Miner::RevertPreviusSatate(void)
+{
+	ChangeState(this->pPreviousState);
 }

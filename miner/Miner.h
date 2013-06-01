@@ -6,8 +6,9 @@
 class Miner: public BaseGameEntity
 {
 private:
+	State<Miner>* pGlobalState;
 	State<Miner>* pCurrentState;
-
+	State<Miner>* pPreviousState;
 	
 public:
 	enum eLocations
@@ -35,6 +36,8 @@ public:
 	void Update(void);
 
 	void ChangeState(State<Miner>* pNewState);
+
+	void RevertPreviusSatate(void);
 
 	int GetLocation(void) { return this->Location;};
 
