@@ -10,20 +10,20 @@ private:
 	State<BaseGameEntity>* pCurrentState;
 	State<BaseGameEntity>* pPreviousState;
 public:
-	BaseGameEntity(int ID)
-	{
-		this->ID = ID;// todo: singleton for single progressive ID
-	}
+	//BaseGameEntity(int ID)
+	//{
+	//	this->ID = ID;// todo: singleton for single progressive ID
+	//}
 
 	// 
 
 	virtual void Update(void) = 0;
 	
 
-	int GetID()
+	/*int GetID()
 	{
 		return this->ID;
 	}
-
+*/
 	
 };
