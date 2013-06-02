@@ -51,17 +51,13 @@ int main()
 	map->SetValue(5,0,1);
 	map->SetValue(5,1,1);
 	map->SetValue(5,2,1);
-	//
-	//	Miner setup
-	//
-	shared_ptr<Miner> myMiner (new Miner(gom.GetNextID()));
-	myMiner->setPosition(10,10);
+	
 	//
 	//	Setup Home
 	//
 	StaticGameObject* sgoHome = new StaticGameObject(gom.GetNextID(),"HOME");
 	sgoHome->setPosition(6.0f*30,6.0f*30);
-	myMiner->setPosition(sgoHome->getPosition());	// setup miner at home
+	
 	//
 	//	Setup Mine
 	//
@@ -75,7 +71,14 @@ int main()
 	sgoBanck->setPosition(10.0f*30,10.0f*30);
 	sgoBanck->setFillColor(sf::Color::Black);
 	
-
+	//
+	//	Miner setup
+	//
+	shared_ptr<Miner> myMiner (new Miner(gom.GetNextID()));
+	myMiner->setPosition(sgoHome->getPosition());	// setup miner at home
+	myMiner->sgoBanck = sgoBanck;
+	myMiner->sgoHome  = sgoHome;
+	myMiner->sgoMine = sgoMine;
 	//
 	//
 	//

@@ -2,16 +2,20 @@
 #include "EnterMinAndDIigForNugget.h"
 #include "GoHomeAndSleep.h"
 #include <cstdio>
-
+#include "VectorUtils.h"
+#include "MoveTo.h"
 
 void VisitBankAndDepositGold::Enter(Miner* pEntity)
 {
 	//todo: fix here
-	//if(pEntity->GetLocation() != Miner::eLocations::Bank) 
+	float distance2 = VectorUtils::Distance2(pEntity->GetLocation(),pEntity->sgoBanck->getPosition());
+	if( distance2 > 10.0f)	// todo: remove magic number
 	{
-		//printf("%d:Enter to Bank\n",pEntity->GetID());
-	//	pEntity->SetLocation(Miner::eLocations::Mine);
+		pEntity->Destiantion = pEntity->sgoBanck->getPosition();
+		pEntity->ChangeState(&MoveToIstance);
+		return;
 	}
+	printf("%d:Enter to Banck\n",pEntity->GetID());
 	pEntity->clock.restart();
 }
 

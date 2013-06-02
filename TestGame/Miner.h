@@ -3,7 +3,8 @@
 #include "BaseGameEntity.h"
 #include "State.h"
 #include "GameObject.h"
-
+#include "StaticGameObject.h"
+#include "VectorUtils.h"
 
 class Miner: public BaseGameEntity, public sf::RectangleShape, public GameObject
 {
@@ -20,7 +21,7 @@ public:
 	int Fatigue;
 	int MaxGoldCarried;
 	int ID;
-	
+	float velocity;
 	sf::Clock clock; // timer
 
 public:
@@ -42,5 +43,11 @@ public:
 	int GetID(void) const {return ID;} ;
 
 	string GetName() const { return string("Miner");} ;
+
+
+	const StaticGameObject* sgoHome;
+	const StaticGameObject* sgoBanck;
+	const StaticGameObject* sgoMine;
+
 };
 

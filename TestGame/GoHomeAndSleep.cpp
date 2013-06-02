@@ -4,19 +4,21 @@
 #include "EnterMinAndDIigForNugget.h"
 #include "GoHomeAndSleep.h"
 #include "StaticGameObject.h"
-
+#include "MoveTo.h"
+#include "VectorUtils.h"
 
 void GoHomeAndSleep::Enter(Miner* pEntity)
 {
 	//todo: fix here
 	//StaticGameObject* sgo =(StaticGameObject*) GameObjectManager.getInstance().findGameObjectByName("HOME").get();
-
-
-	
-	if(pEntity->GetLocation() != sf::Vector2f(2.0f,4.0f))
+	float distance2 = VectorUtils::Distance2(pEntity->GetLocation(),pEntity->sgoHome->getPosition());
+	if( distance2 > 10.0f)	// todo: remove magic number
 	{
-		printf("%d:Enter to Home\n",pEntity->GetID());
+		pEntity->Destiantion = pEntity->sgoHome->getPosition();
+		pEntity->ChangeState(&MoveToIstance);
+		return;
 	}
+	printf("%d:Enter to Home\n",pEntity->GetID());
 	printf("%d:Sleep",pEntity->GetID());
 	pEntity->clock.restart();
 }

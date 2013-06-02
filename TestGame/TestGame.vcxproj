@@ -76,6 +76,7 @@
     <ClInclude Include="MoveTo.h" />
     <ClInclude Include="myMap.h" />
     <ClInclude Include="StaticGameObject.h" />
+    <ClInclude Include="VectorUtils.h" />
     <ClInclude Include="VisitBankAndDepositGold.h" />
   </ItemGroup>
   <ItemGroup>
