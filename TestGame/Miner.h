@@ -20,7 +20,8 @@ public:
 	int Fatigue;
 	int MaxGoldCarried;
 	int ID;
-
+	
+	sf::Clock clock; // timer
 
 public:
 	// constuctor

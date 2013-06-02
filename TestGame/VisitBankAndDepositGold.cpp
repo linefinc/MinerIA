@@ -12,22 +12,31 @@ void VisitBankAndDepositGold::Enter(Miner* pEntity)
 		//printf("%d:Enter to Bank\n",pEntity->GetID());
 	//	pEntity->SetLocation(Miner::eLocations::Mine);
 	}
+	pEntity->clock.restart();
 }
 
 
 void VisitBankAndDepositGold::Execute(Miner* pEntity)
 {
-	pEntity->CC += pEntity->GoldCarried;
-	pEntity->GoldCarried = 0;
-	printf("Total CC %d\n", pEntity->CC);
-	if(pEntity->Fatigue > 30)
+	sf::Time esliped = pEntity->clock.getElapsedTime();
+	if(esliped.asMilliseconds() > 1000)
 	{
-		pEntity->ChangeState(&GoHomeAndSleepIstance);
+		pEntity->clock.restart();
+		pEntity->CC += pEntity->GoldCarried;
+		pEntity->GoldCarried = 0;
+		printf("Total CC %d\n", pEntity->CC);
+
+
+		if(pEntity->Fatigue > 30)
+		{
+			pEntity->ChangeState(&GoHomeAndSleepIstance);
+		}
+		else
+		{
+			pEntity->ChangeState(&EnterMinAndDIigForNuggetIstance);
+		}	
 	}
-	else
-	{
-		pEntity->ChangeState(&EnterMinAndDIigForNuggetIstance);
-	}
+	
 }
 
 

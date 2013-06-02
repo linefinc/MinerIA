@@ -1,7 +1,7 @@
 #include "Miner.h"
 #include <cstdio>
 #include <cassert>
-#include "VisitBankAndDepositGold.h"
+#include "GoHomeAndSleep.h"
 
 Miner::Miner(int ID)
 :BaseGameEntity()
@@ -15,12 +15,15 @@ Miner::Miner(int ID)
 	this->Thist = 0;
 	this->GoldCarried = 0;
 	//this->SetLocation(eLocations::Home); //todo: fix here
-	this->pCurrentState = &VisitBankAndDepositGoldIstance;
+	this->pCurrentState = &GoHomeAndSleepIstance;
 	this->pGlobalState = NULL;
 	
 	// render part
 	this->setSize(sf::Vector2f(30.0f,30.0f));
 	this->setFillColor(sf::Color::Blue);
+
+	// starts the clock
+	clock.restart();
 }
 
 

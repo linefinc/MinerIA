@@ -61,6 +61,7 @@ int main()
 	//
 	StaticGameObject* sgoHome = new StaticGameObject(gom.GetNextID(),"HOME");
 	sgoHome->setPosition(6.0f*30,6.0f*30);
+	myMiner->setPosition(sgoHome->getPosition());	// setup miner at home
 	//
 	//	Setup Mine
 	//
