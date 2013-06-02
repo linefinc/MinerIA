@@ -15,8 +15,9 @@ using namespace std;
 int main()
 {
 	//inizalizze gameObj
-	//GameObjectManager* gom = GameObjectManager::GetIstance();
-	GameObjectManager* gom = &GameObjectManagerIstance;
+	
+
+	GameObjectManager& gom = GameObjectManager::getInstance();
 
 	// setup video mode
 	sf::RenderWindow window(sf::VideoMode(600, 600), "Miner works!");
@@ -52,9 +53,7 @@ int main()
 	//
 	//
 	//
-	shared_ptr<Miner> pMiner (new Miner(gom->GetNextID()));
-	gom->AddGameObject(pMiner);
-	Miner* myMiner = new Miner(0);
+	shared_ptr<Miner> myMiner (new Miner(gom.GetNextID()));
 	myMiner->setPosition(10,10);
 	//
 	//

@@ -10,35 +10,33 @@ using namespace std;
 class GameObjectManager
 {
 private:
-	// singleton
-	//static GameObjectManager* instancePtr;
-	vector<shared_ptr<GameObject>>* listGameObjects;
-
 	int NextID;
 
-	// private costructr
-	
-	
-public:
-	//static GameObjectManager* GetIstance() 
-	//{
-	//	if (instancePtr == NULL) 
-	//	{
-	//		instancePtr = new GameObjectManager();
-	//	}
-	//	return instancePtr;
-	//}
-	GameObjectManager();
 
-	~GameObjectManager(void);
+	private:
+        GameObjectManager() 
+		{
+			NextID =0;
+		};                   // Constructor? (the {} brackets) are needed here.
+        // Dont forget to declare these two. You want to make sure they
+        // are unaccessable otherwise you may accidently get copies of
+        // your singleton appearing.
+        GameObjectManager(GameObjectManager const&);              // Don't Implement
+        void operator=(GameObjectManager const&); // Don't implement
 
-	shared_ptr<GameObject> findGameObjectByName(const string& Name);
+	public:
+        static GameObjectManager& getInstance()
+        {
+            static GameObjectManager    instance; // Guaranteed to be destroyed.
+			// Instantiated on first use.
+            return instance;
+        }
 
-	void AddGameObject(shared_ptr<GameObject> object);
+		shared_ptr<GameObject> findGameObjectByName(const string& Name);
 
-	int GetNextID();
+		void AddGameObject(shared_ptr<GameObject> object);
+
+		int GetNextID();
 };
 
-// initialize pointer
-//GameObjectManager* GameObjectManager::instancePtr = NULL;
-static GameObjectManager GameObjectManagerIstance;
+
