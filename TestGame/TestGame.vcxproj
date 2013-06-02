@@ -75,6 +75,7 @@
     <ClInclude Include="Miner.h" />
     <ClInclude Include="MoveTo.h" />
     <ClInclude Include="myMap.h" />
+    <ClInclude Include="StaticGameObject.h" />
     <ClInclude Include="VisitBankAndDepositGold.h" />
   </ItemGroup>
   <ItemGroup>
@@ -85,6 +86,7 @@
     <ClCompile Include="Miner.cpp" />
     <ClCompile Include="MoveTo.cpp" />
     <ClCompile Include="myMap.cpp" />
+    <ClCompile Include="StaticGameObject.cpp" />
     <ClCompile Include="VisitBankAndDepositGold.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

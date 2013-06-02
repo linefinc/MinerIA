@@ -8,6 +8,7 @@
 #include "myMap.h"
 #include "Miner.h"
 #include "GameObjectManager.h"
+#include "StaticGameObject.h"
 
 using namespace std;
 
@@ -51,10 +52,29 @@ int main()
 	map->SetValue(5,1,1);
 	map->SetValue(5,2,1);
 	//
-	//
+	//	Miner setup
 	//
 	shared_ptr<Miner> myMiner (new Miner(gom.GetNextID()));
 	myMiner->setPosition(10,10);
+	//
+	//	Setup Home
+	//
+	StaticGameObject* sgoHome = new StaticGameObject(gom.GetNextID(),"HOME");
+	sgoHome->setPosition(6.0f*30,6.0f*30);
+	//
+	//	Setup Mine
+	//
+	StaticGameObject* sgoMine = new StaticGameObject(gom.GetNextID(),"MINE");
+	sgoMine->setPosition(8.0f*30,1.0f*30);
+	sgoMine->setFillColor(sf::Color::Magenta);
+	//
+	//	Setup Banck
+	//
+	StaticGameObject* sgoBanck = new StaticGameObject(gom.GetNextID(),"BANCK");
+	sgoBanck->setPosition(10.0f*30,10.0f*30);
+	sgoBanck->setFillColor(sf::Color::Black);
+	
+
 	//
 	//
 	//
@@ -75,7 +95,12 @@ int main()
 		// render
         window.clear();
 		map->Render(&window);
+		
+		window.draw(*sgoBanck);
+		window.draw(*sgoHome);
+		window.draw(*sgoMine);
 		window.draw(*myMiner);
+
         window.display();
     }
 
