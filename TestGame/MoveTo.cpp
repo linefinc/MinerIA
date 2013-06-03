@@ -45,48 +45,41 @@ void MoveTo::Execute(Miner* pEntity) // todo: review all function. Spaghetti flo
 		
 		
 		pEntity->clock.restart();
-		printf(".");
+		//printf(".");
 		sf::Vector2f nextDestination = pEntity->listDestiantion[0];
 		float distance2 = VectorUtils::Distance2(pEntity->GetLocation(),nextDestination);
-		if( distance2 < 10.0f)	// todo: remove magic number
+	
+		sf::Vector2f dir = nextDestination - pEntity->getPosition();
+		dir = VectorUtils::Normalize(dir);
+
+		// the same of "float distaneTravaled = esliped.asMilliseconds()* pEntity->velocity /1000;"
+		float distaneTravaled = esliped.asMilliseconds()* pEntity->velocity * 1e-3f;
+
+
+		dir.x *= distaneTravaled;// todo: user lerp
+		dir.y *= distaneTravaled;
+
+		if(distance2 > VectorUtils::Length2(dir))
 		{
+			pEntity->setPosition( nextDestination + dir);
+		}
+		else
+		{
+			pEntity->setPosition( nextDestination);
 			if( nextDestination == pEntity->FinalDestiantion)
 			{
-				printf("\n");
+			//	printf("\n");
 				pEntity->RevertPreviusSatate();
 				return;
 			}
 			else
 			{
 				pEntity->listDestiantion.erase(pEntity->listDestiantion.begin());
-				printf("#");
-			}
-		}
-		else
-		{
-			
-
-			sf::Vector2f dir = nextDestination - pEntity->getPosition();
-			dir = VectorUtils::Normalize(dir);
-
-			// the same of "float distaneTravaled = esliped.asMilliseconds()* pEntity->velocity /1000;"
-			float distaneTravaled = esliped.asMilliseconds()* pEntity->velocity * 1e-3f;
-
-
-			dir.x *= distaneTravaled;// todo: user lerp
-			dir.y *= distaneTravaled;
-
-			if(distance2 > VectorUtils::Length2(dir))
-			{
-				pEntity->setPosition( nextDestination + dir);
-			}
-			else
-			{
-				pEntity->setPosition( nextDestination);
-
+				//printf("#");
 			}
 		}
 		
+	
 
 
 	}
