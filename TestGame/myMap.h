@@ -1,23 +1,24 @@
 #pragma once
 #include <vector>
 #include <SFML\Graphics.hpp>
+#include "FindableMap.h"
 
 
-
-class myMap
+class myMap: public FindableMap
 {
 private:
 	int width; 
 	int height;
 
 public:
-	myMap(int width, int height);
+	myMap(int width, int height, unsigned int boxSide);
 	~myMap(void);
 
 	std::vector<sf::Shape*> listShape;
 
+	unsigned int boxSide;
 public:
-
+	
 
 
 	unsigned char* map;

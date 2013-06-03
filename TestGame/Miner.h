@@ -1,10 +1,15 @@
 #pragma once
+// standard library
+#include <vector>
+// 
 #include <SFML\Graphics.hpp>
+
 #include "BaseGameEntity.h"
 #include "State.h"
 #include "GameObject.h"
 #include "StaticGameObject.h"
 #include "VectorUtils.h"
+#include "myMap.h"
 
 class Miner: public BaseGameEntity, public sf::RectangleShape, public GameObject
 {
@@ -12,9 +17,10 @@ private:
 	State<Miner>* pGlobalState;
 	State<Miner>* pCurrentState;
 	State<Miner>* pPreviousState;
-	
+
+
 public:
-	sf::Vector2f Destiantion;
+	
 	int Thist;
 	int GoldCarried;
 	int CC;
@@ -24,6 +30,8 @@ public:
 	float velocity;
 	sf::Clock clock; // timer
 
+	sf::Vector2f FinalDestiantion;
+	std::vector<sf::Vector2f> listDestiantion;
 public:
 	// constuctor
 	Miner(int ID);
@@ -48,6 +56,6 @@ public:
 	const StaticGameObject* sgoHome;
 	const StaticGameObject* sgoBanck;
 	const StaticGameObject* sgoMine;
-
+	const myMap* map;
 };
 

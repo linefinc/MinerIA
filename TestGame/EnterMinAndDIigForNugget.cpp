@@ -13,7 +13,7 @@ void EnterMinAndDIigForNugget::Enter(Miner* pEntity)
 	float distance2 = VectorUtils::Distance2(pEntity->GetLocation(),pEntity->sgoMine->getPosition());
 	if( distance2 > 10.0f)	// todo: remove magic number
 	{
-		pEntity->Destiantion = pEntity->sgoMine->getPosition();
+		pEntity->FinalDestiantion = pEntity->sgoMine->getPosition();
 		pEntity->ChangeState(&MoveToIstance);
 		return;
 	}

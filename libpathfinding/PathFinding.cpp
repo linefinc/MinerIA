@@ -17,7 +17,8 @@ PathFinder::PathFinder(const FindableMap* pMap,Point2d start, Point2d destinatio
 
 bool PathFinder::calc()
 {
-
+	printf("[%02d]Start Node %d %d\n",Counter ,start.x, start.y );
+	printf("[%02d]Destiantio Node %d %d\n",Counter ,destination.x, destination.y );
 
 	// initialize Open Set
 	start.CalcDistance(destination);
@@ -159,11 +160,17 @@ void PathFinder::ReconstructPath(void)
 		
 		if((nextX == start.x)&&(nextY == start.y))
 		{
-			return;
+			break;
 		}
 		index = FindNodeByCoordinate(nextX,nextY);
 	}
 
+	// reverse list here
+	unsigned int halfSize = ( Path.size() >> 2);
+	unsigned int size = Path.size();
+
+
+	// todo: reverse list here
 }
 
 int PathFinder::FindNodeByCoordinate(int x ,int y) const

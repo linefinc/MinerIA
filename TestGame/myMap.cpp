@@ -1,20 +1,18 @@
 #include "myMap.h"
 
 
-myMap::myMap(int width, int height)
-	:width(width),height(height)
+myMap::myMap(int width, int height,unsigned int boxSide)// todo: cange coordiante sistem to fit with game coordinte
+	:width(width),height(height),boxSide(boxSide)
 {
 	map = new unsigned char [width * height];
-	memset(map, 0, sizeof(map));
-
-	const int boxSide = 36;
+	memset(map, 0, width * height);
 
 	for(int y = 0; y < height; y++)
 		for(int x = 0; x < width; x++)
 		{
 			unsigned int i = width * y+x;
 			sf::RectangleShape* rs= new sf::RectangleShape(sf::Vector2f(boxSide, boxSide));				
-			rs->setPosition(x*boxSide,y*boxSide);
+			rs->setPosition((float)x*boxSide,(float)y*boxSide);
 			rs->setFillColor(sf::Color::Green);
 			listShape.push_back(rs);
 		}

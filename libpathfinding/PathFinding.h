@@ -17,11 +17,13 @@ private:
 
 	vector<Point2d> ClosedSet;
 	deque<Point2d> OpenSet;
-	vector<Point2d> Path;
+	
 public:
 	PathFinder(const FindableMap* pMap,Point2d start, Point2d destination);
 
 	bool calc();
+
+	vector<Point2d> Path;
 
 private:
 	int GetLowerScoreNodeFromOpenSet() const;
@@ -35,4 +37,6 @@ private:
 	int FindNodeByCoordinate(int x ,int y) const;
 
 	void ReconstructPath(void);
+
+
 };

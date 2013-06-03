@@ -14,7 +14,7 @@ void GoHomeAndSleep::Enter(Miner* pEntity)
 	float distance2 = VectorUtils::Distance2(pEntity->GetLocation(),pEntity->sgoHome->getPosition());
 	if( distance2 > 10.0f)	// todo: remove magic number
 	{
-		pEntity->Destiantion = pEntity->sgoHome->getPosition();
+		pEntity->FinalDestiantion = pEntity->sgoHome->getPosition();
 		pEntity->ChangeState(&MoveToIstance);
 		return;
 	}

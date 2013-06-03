@@ -26,7 +26,7 @@ int main()
 	shared_ptr<sf::CircleShape> newCirle(new sf::CircleShape(10.0f));
 	newCirle->setFillColor(sf::Color::Green);
 
-	myMap* map = new myMap(window.getSize().x/ 30,window.getSize().y/ 30);
+	myMap* map = new myMap(window.getSize().x/ 30,window.getSize().y/ 30, 30);
 	//
 	// init maps
 	//
@@ -56,7 +56,7 @@ int main()
 	//	Setup Home
 	//
 	StaticGameObject* sgoHome = new StaticGameObject(gom.GetNextID(),"HOME");
-	sgoHome->setPosition(6.0f*30,6.0f*30);
+	sgoHome->setPosition(1.0f*30,5.0f*30);
 	
 	//
 	//	Setup Mine
@@ -70,7 +70,6 @@ int main()
 	StaticGameObject* sgoBanck = new StaticGameObject(gom.GetNextID(),"BANCK");
 	sgoBanck->setPosition(10.0f*30,10.0f*30);
 	sgoBanck->setFillColor(sf::Color::Black);
-	
 	//
 	//	Miner setup
 	//
@@ -79,6 +78,8 @@ int main()
 	myMiner->sgoBanck = sgoBanck;
 	myMiner->sgoHome  = sgoHome;
 	myMiner->sgoMine = sgoMine;
+	myMiner->map = map;
+	myMiner->velocity = 4e-5;
 	//
 	//
 	//
