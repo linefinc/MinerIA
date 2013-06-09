@@ -68,6 +68,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="cResurceManager.h" />
     <ClInclude Include="EnterMinAndDIigForNugget.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameObjectManager.h" />
@@ -80,6 +81,7 @@
     <ClInclude Include="VisitBankAndDepositGold.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="cResurceManager.cpp" />
     <ClCompile Include="EnterMinAndDIigForNugget.cpp" />
     <ClCompile Include="GameObjectManager.cpp" />
     <ClCompile Include="GoHomeAndSleep.cpp" />
