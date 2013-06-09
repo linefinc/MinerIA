@@ -14,7 +14,12 @@ public:
 	myMap(int width, int height, unsigned int boxSide);
 	~myMap(void);
 
-	std::vector<sf::Shape*> listShape;
+	std::vector<sf::Sprite*> listSprite;
+	std::vector<sf::Texture*>* TextureList;
+
+	sf::Texture* GreenTexture;
+	sf::Texture* GreyTexture;
+	sf::Texture* RedTexture;
 
 	unsigned int boxSide;
 public:
