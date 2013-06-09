@@ -17,7 +17,7 @@ public:
 		return temp1 + temp2;
 	}
 
-	inline static const sf::Vector2f& Normalize(const sf::Vector2f vec)
+	inline static const sf::Vector2f Normalize(const sf::Vector2f vec)
 	{
 		float d = sqrt(vec.x *vec.x + vec.y * vec.y);
 		return sf::Vector2f(vec.x/ d, vec.y / d);
@@ -31,5 +31,12 @@ public:
 		return temp;
 	}
 	
+
+	inline static const sf::Vector2f ConvertToScreenSpace(int x, int y, int ScreenWidth)
+	{
+		int X1 = x * 32 - y * 32 + ScreenWidth /2 - 32;
+		int Y1 = x * 16 + y * 16;
+		return sf::Vector2f(X1,Y1);
+	}
 };
 
