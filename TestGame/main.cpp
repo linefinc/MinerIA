@@ -83,7 +83,9 @@ int main()
 	//	Miner setup
 	//
 	shared_ptr<Miner> myMiner (new Miner(gom.GetNextID()));
-	myMiner->setPosition(sgoHome->getPosition());	// setup miner at home
+	sf::Vector2f pos = sgoHome->getPosition();
+	
+	myMiner->setPosition(pos);	// setup miner at home
 	myMiner->sgoBank = sgoBank;
 	myMiner->sgoHome  = sgoHome;
 	myMiner->sgoMine = sgoMine;
@@ -110,8 +112,7 @@ int main()
 
 		// render
         window.clear();
-		map->Render(&window);
-		
+		window.draw(*map);
 		window.draw(*sgoBank);
 		window.draw(*sgoHome);
 		window.draw(*sgoMine);

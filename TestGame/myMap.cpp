@@ -35,9 +35,6 @@ myMap::myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide
 			unsigned int i = width * y+x;
 			sf::Sprite* rs= new sf::Sprite();				
 			rs->setTexture(*TextureList->at(0),true);
-
-			/*int X1 = x * 32 - y * 32 + (400-32);
-			int Y1 = x * 16 + y * 16;*/
 			rs->setPosition(VectorUtils::ConvertToScreenSpace(x,y,ScreenWidth));
 
 			listSprite.push_back(rs);
@@ -89,13 +86,11 @@ bool myMap::CellIsEmpty(int x,int y) const
 	return false;
 }
 
-void myMap::Render(sf::RenderWindow* window)
+void myMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	sf::Vector2u size =  window->getSize();
 	for(unsigned int i=0; i < listSprite.size(); i++)
 	{
-		window->draw(*listSprite[i]);
+		target.draw(*listSprite[i], states);
 	}
-
 
 }

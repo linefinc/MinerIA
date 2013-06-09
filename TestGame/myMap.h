@@ -4,12 +4,14 @@
 #include "FindableMap.h"
 
 
-class myMap: public FindableMap
+class myMap: public FindableMap, public sf::Drawable
 {
 private:
 	int width; 
 	int height;
 	unsigned int ScreenWidth;
+	// draw implementation used form sfml
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 public:
 	myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide);
 	~myMap(void);
@@ -22,7 +24,7 @@ public:
 	sf::Texture* RedTexture;
 
 	unsigned int boxSide;
-public:
+
 	
 
 
@@ -34,6 +36,5 @@ public:
 
 	bool CellIsEmpty(int x,int y) const;
 
-	void Render(sf::RenderWindow* window);
 };
 
