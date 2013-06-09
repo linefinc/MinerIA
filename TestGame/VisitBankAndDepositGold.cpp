@@ -8,10 +8,10 @@
 void VisitBankAndDepositGold::Enter(Miner* pEntity)
 {
 	//todo: fix here
-	float distance2 = VectorUtils::Distance2(pEntity->GetLocation(),pEntity->sgoBanck->getPosition());
+	float distance2 = VectorUtils::Distance2(pEntity->GetLocation(),pEntity->sgoBank->getPosition());
 	if( distance2 > 10.0f)	// todo: remove magic number
 	{
-		pEntity->FinalDestiantion = pEntity->sgoBanck->getPosition();
+		pEntity->FinalDestiantion = pEntity->sgoBank->getPosition();
 		pEntity->ChangeState(&MoveToIstance);
 		return;
 	}

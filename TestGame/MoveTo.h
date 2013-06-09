@@ -12,6 +12,8 @@ public:
 	void Execute(Miner* pEntity);
 
 	void Exit(Miner* pEntity);
+
+	void SwitchSprite(Miner* pEntity,float angle);
 };
 
 static MoveTo MoveToIstance;

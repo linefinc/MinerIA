@@ -5,6 +5,8 @@
 
 
 
+
+
 class EnterMinAndDIigForNugget: public State<Miner>
 {
 public:
@@ -16,3 +18,4 @@ public:
 };
 
 static EnterMinAndDIigForNugget EnterMinAndDIigForNuggetIstance;
+

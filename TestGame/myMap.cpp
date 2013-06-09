@@ -1,8 +1,8 @@
 #include "myMap.h"
+#include "VectorUtils.h"
 
-
-myMap::myMap(int width, int height,unsigned int boxSide)// todo: cange coordiante sistem to fit with game coordinte
-	:width(width),height(height),boxSide(boxSide)
+myMap::myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide)// todo: cange coordiante sistem to fit with game coordinte
+	:width(width),height(height),boxSide(boxSide),ScreenWidth(ScreenWidth)
 {
 	map = new unsigned char [width * height];
 	memset(map, 0, width * height);
@@ -36,9 +36,9 @@ myMap::myMap(int width, int height,unsigned int boxSide)// todo: cange coordiant
 			sf::Sprite* rs= new sf::Sprite();				
 			rs->setTexture(*TextureList->at(0),true);
 
-			int X1 = x * 32 - y * 32 + (400-32);
-			int Y1 = x * 16 + y * 16;
-			rs->setPosition(X1,Y1);
+			/*int X1 = x * 32 - y * 32 + (400-32);
+			int Y1 = x * 16 + y * 16;*/
+			rs->setPosition(VectorUtils::ConvertToScreenSpace(x,y,ScreenWidth));
 
 			listSprite.push_back(rs);
 		}

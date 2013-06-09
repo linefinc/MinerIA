@@ -14,7 +14,7 @@ Miner::Miner(int ID)
 	this->Fatigue = 0;
 	this->Thist = 0;
 	this->GoldCarried = 0;
-	this->sgoBanck = NULL;
+	this->sgoBank = NULL;
 	this->sgoHome = NULL;
 	this->sgoMine = NULL;
 	this->velocity= .404f;
@@ -24,8 +24,22 @@ Miner::Miner(int ID)
 	this->pGlobalState = NULL;
 	
 	// render part
-	this->setSize(sf::Vector2f(30.0f,30.0f));
-	this->setFillColor(sf::Color::Blue);
+	AddTexture("../data/mower/0001.png");
+	AddTexture("../data/mower/0002.png");
+	AddTexture("../data/mower/0003.png");
+	AddTexture("../data/mower/0004.png");
+	AddTexture("../data/mower/0005.png");
+	AddTexture("../data/mower/0006.png");
+	AddTexture("../data/mower/0007.png");
+
+	AddTexture("../data/mower/0008.png");
+	AddTexture("../data/mower/0009.png");
+	AddTexture("../data/mower/0010.png");
+	//
+	// setup 
+	//
+	this->setTexture(*textureList[0]);
+	this->setTextureRect(sf::IntRect(0, 0, 64, 64));
 
 	// starts the clock
 	clock.restart();
@@ -40,11 +54,6 @@ Miner::~Miner(void)
 void Miner::Update(void)
 {
 	Thist++;
-	//if(pCurrentState != NULL)
-	//{
-	//	pGlobalState->Execute(this);
-	//}
-
 	if(pCurrentState != NULL)
 	{
 		pCurrentState->Execute(this);
@@ -67,4 +76,32 @@ void Miner::ChangeState(State<Miner>* pNewState)
 void Miner::RevertPreviusSatate(void)
 {
 	ChangeState(this->pPreviousState);
+}
+
+void Miner::AddTexture(const char* filename)
+{
+	// 
+	//	load image 
+	//
+	sf::Texture* texture = new sf::Texture();
+	if(texture->loadFromFile(filename) == false)
+	{
+		return ;	
+		// Error...
+	}
+
+	textureList.push_back(texture);
+	
+	
+	
+
+	
+
+}
+
+void Miner::setTexturebyID(unsigned int ID)
+{
+
+	this->setTexture(*textureList[ID]);
+
 }

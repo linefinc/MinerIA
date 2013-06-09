@@ -11,16 +11,22 @@
 #include "VectorUtils.h"
 #include "myMap.h"
 
-class Miner: public BaseGameEntity, public sf::RectangleShape, public GameObject
+
+class Miner: public BaseGameEntity, public sf::Sprite, public GameObject
 {
 private:
 	State<Miner>* pGlobalState;
 	State<Miner>* pCurrentState;
 	State<Miner>* pPreviousState;
 
+	
+	
+	void AddTexture(const char* filename);
 
+	vector<sf::Texture*> textureList;
 public:
 	
+
 	int Thist;
 	int GoldCarried;
 	int CC;
@@ -52,10 +58,14 @@ public:
 
 	string GetName() const { return string("Miner");} ;
 
+	void setTexturebyID(unsigned int ID);
+
 
 	const StaticGameObject* sgoHome;
-	const StaticGameObject* sgoBanck;
+	const StaticGameObject* sgoBank;
 	const StaticGameObject* sgoMine;
 	const myMap* map;
+
 };
+
 

@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class StaticGameObject: public sf::RectangleShape, public GameObject
+class StaticGameObject: public sf::Sprite, public GameObject
 {
 	int ID;
 	string Name;

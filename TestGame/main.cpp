@@ -9,24 +9,23 @@
 #include "Miner.h"
 #include "GameObjectManager.h"
 #include "StaticGameObject.h"
+#include "cResurceManager.h"
 
 using namespace std;
 
-
 int main()
 {
-	//inizalizze gameObj
-	
+	// nit resurce manager
+	cResurceManager* ResurceManager = new cResurceManager();
 
+	//inizalizze gameObj
 	GameObjectManager& gom = GameObjectManager::getInstance();
 
 	// setup video mode
-	sf::RenderWindow window(sf::VideoMode(600, 600), "Miner works!");
-    
-	shared_ptr<sf::CircleShape> newCirle(new sf::CircleShape(10.0f));
-	newCirle->setFillColor(sf::Color::Green);
+	sf::RenderWindow window(sf::VideoMode(800, 600), "Miner works!");
 
-	myMap* map = new myMap(window.getSize().x/ 30,window.getSize().y/ 30, 30);
+	//myMap* map = new myMap(window.getSize().x/ 30,window.getSize().y/ 30, 30);
+	myMap* map = new myMap(12,12,800,32);
 	//
 	// init maps
 	//
@@ -56,33 +55,45 @@ int main()
 	//	Setup Home
 	//
 	StaticGameObject* sgoHome = new StaticGameObject(gom.GetNextID(),"HOME");
-	sgoHome->setPosition(1.0f*30,5.0f*30);
+	sgoHome->setPosition(VectorUtils::ConvertToScreenSpace(1,5,800));
 	
+	sf::Texture* pTextureHome  = new sf::Texture();
+	pTextureHome->loadFromFile("../data/base/base_0004.png");
+	sgoHome->setTexture(*pTextureHome);
+
 	//
 	//	Setup Mine
 	//
 	StaticGameObject* sgoMine = new StaticGameObject(gom.GetNextID(),"MINE");
-	sgoMine->setPosition(8.0f*30,1.0f*30);
-	sgoMine->setFillColor(sf::Color::Magenta);
+	sgoMine->setPosition(VectorUtils::ConvertToScreenSpace(8,1,800));
+	
+	sf::Texture* pTextureMine  = new sf::Texture();
+	pTextureMine->loadFromFile("../data/base/base_0006.png");
+	sgoMine->setTexture(*pTextureMine);
 	//
-	//	Setup Banck
+	//	Setup Bank
 	//
-	StaticGameObject* sgoBanck = new StaticGameObject(gom.GetNextID(),"BANCK");
-	sgoBanck->setPosition(10.0f*30,10.0f*30);
-	sgoBanck->setFillColor(sf::Color::Black);
+	StaticGameObject* sgoBank = new StaticGameObject(gom.GetNextID(),"BANK");
+	sgoBank->setPosition(VectorUtils::ConvertToScreenSpace(10,10,800));
+
+	sf::Texture* pTextureBank  = new sf::Texture();
+	pTextureBank->loadFromFile("../data/base/base_0004.png");
+	sgoBank->setTexture(*pTextureBank);
 	//
 	//	Miner setup
 	//
 	shared_ptr<Miner> myMiner (new Miner(gom.GetNextID()));
 	myMiner->setPosition(sgoHome->getPosition());	// setup miner at home
-	myMiner->sgoBanck = sgoBanck;
+	myMiner->sgoBank = sgoBank;
 	myMiner->sgoHome  = sgoHome;
 	myMiner->sgoMine = sgoMine;
 	myMiner->map = map;
-	myMiner->velocity = 4e-2;
+	myMiner->velocity = 4e-2f;
+	
 	//
 	//
 	//
+
     while (window.isOpen())
     {
         sf::Event event;
@@ -95,19 +106,20 @@ int main()
         }
 
 		// update
-		myMiner->Update();
+		//myMiner->Update();
 
 		// render
         window.clear();
 		map->Render(&window);
 		
-		window.draw(*sgoBanck);
+		window.draw(*sgoBank);
 		window.draw(*sgoHome);
 		window.draw(*sgoMine);
 		window.draw(*myMiner);
-
         window.display();
     }
 
     return 0;
 }
+
+

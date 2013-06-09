@@ -1,6 +1,10 @@
 #include "MoveTo.h"
 #include "VectorUtils.h"
 #include "PathFinding.h"
+#include <cmath>
+
+#define PI 3.14159265359
+
 
 void MoveTo::Enter(Miner* pEntity)
 {
@@ -36,16 +40,11 @@ void MoveTo::Enter(Miner* pEntity)
 
 void MoveTo::Execute(Miner* pEntity) // todo: review all function. Spaghetti flow code
 {
-	
-	
 	sf::Time esliped = pEntity->clock.getElapsedTime();
 	
 	//if(esliped.asMilliseconds() > 20)
 	{
-		
-		
 		pEntity->clock.restart();
-		//printf(".");
 		sf::Vector2f nextDestination = pEntity->listDestiantion[0];
 		float distance2 = VectorUtils::Distance2(pEntity->GetLocation(),nextDestination);
 	
@@ -56,7 +55,7 @@ void MoveTo::Execute(Miner* pEntity) // todo: review all function. Spaghetti flo
 		float distaneTravaled = esliped.asMilliseconds()* pEntity->velocity * 1e-3f;
 
 
-		dir.x *= distaneTravaled;// todo: user lerp
+		dir.x *= distaneTravaled;
 		dir.y *= distaneTravaled;
 
 		if(distance2 > VectorUtils::Length2(dir))
@@ -68,14 +67,21 @@ void MoveTo::Execute(Miner* pEntity) // todo: review all function. Spaghetti flo
 			pEntity->setPosition( nextDestination);
 			if( nextDestination == pEntity->FinalDestiantion)
 			{
-			//	printf("\n");
 				pEntity->RevertPreviusSatate();
 				return;
 			}
 			else
 			{
+				// erase the top position from list destiantion
 				pEntity->listDestiantion.erase(pEntity->listDestiantion.begin());
-				//printf("#");
+				
+				// calc the new angle from local and next positions
+			//	sf::Vector2f dir = pEntity->listDestiantion[0] - pEntity->getPosition();
+				
+				//float angle = atan2f(dir.y,dir.x) *180 /PI;
+				//SwitchSprite(pEntity,angle);
+				
+	
 			}
 		}
 		
@@ -88,4 +94,52 @@ void MoveTo::Execute(Miner* pEntity) // todo: review all function. Spaghetti flo
 void MoveTo::Exit(Miner* pEntity)
 {
 	printf("%d:Exit Mote to state\n",pEntity->GetID());
+}
+
+void MoveTo::SwitchSprite(Miner* pEntity,float angle)
+{
+	// value +1 = 0000'0001		0x01
+	// value +0 = 0000'0000		0x00
+	// value -1 = 1111'1111		0xFF
+	
+	// dx -1:0:+1
+	// dy -1:0:+1
+
+//	char value1 = dx & 0x0F;
+//	char value2 = dy & 0xF0;
+//	value2 = value2 << 4;
+//	value2 += value1;
+
+	int iAngle = angle/90*2;
+
+
+	switch(iAngle)
+	{
+	
+
+	case -2:	// 90°
+		pEntity->setTexturebyID(5); // 0006.png ->(5)
+		return;
+	
+	//case -1:	// 45°
+	//	pEntity->setTexturebyID(9);	// 0003
+	//	return;
+	case 0:	// 0°
+		pEntity->setTexturebyID(3); // 0004.png -> (3)
+		return;
+	/*case 1:	
+		pEntity->setTexturebyID(9);	
+		return;*/
+	case 2:		//90°
+		pEntity->setTexturebyID(1);	// 0002.png -> (1)
+		return;
+	case 4:		//180°
+		pEntity->setTexturebyID(7);	// 0008.png	-> (7)
+		return;
+	default:
+		return;
+	}
+
+//	pEntity->setTexturebyID(dx);
+
 }

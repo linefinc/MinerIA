@@ -9,9 +9,9 @@ class myMap: public FindableMap
 private:
 	int width; 
 	int height;
-
+	unsigned int ScreenWidth;
 public:
-	myMap(int width, int height, unsigned int boxSide);
+	myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide);
 	~myMap(void);
 
 	std::vector<sf::Sprite*> listSprite;
