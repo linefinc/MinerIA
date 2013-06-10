@@ -25,6 +25,10 @@ public:
 
 	vector<Point2d> Path;
 
+	void Optimize(void);
+
+	void Reverse(void);
+
 private:
 	int GetLowerScoreNodeFromOpenSet() const;
 

@@ -16,10 +16,9 @@ void MoveTo::Enter(Miner* pEntity)
 	*/
 
 	pEntity->listDestiantion.clear();
-	unsigned int boxSide = pEntity->map->boxSide;
 
-	Point2d start(pEntity->GetGamePosition().x/ boxSide,pEntity->GetGamePosition().y / boxSide);// todo: cange coordiante sistem to fit with game coordinte
-	Point2d end(pEntity->FinalDestiantion.x /boxSide,pEntity->FinalDestiantion.y / boxSide);
+	Point2d start(pEntity->GetGamePosition().x,pEntity->GetGamePosition().y);// todo: cange coordiante sistem to fit with game coordinte
+	Point2d end(pEntity->FinalDestiantion.x ,pEntity->FinalDestiantion.y);
 	PathFinder pf(pEntity->map,start,end);
 	bool rc = pf.calc();
 	if( rc == false)
@@ -27,11 +26,16 @@ void MoveTo::Enter(Miner* pEntity)
 		printf("error");
 	}
 
+	
+	pf.Reverse();
+	vector<Point2d> temp (pf.Path);
+	pf.Optimize();
+
 	// reverse order
-	for(int index = pf.Path.size() -1 ; index > -1 ; index--)
+	for(int index = 0 ; index < pf.Path.size() ; index++)
 	{
-		float x = pf.Path[index ].x * boxSide;
-		float y = pf.Path[index ].y * boxSide;
+		float x = pf.Path[index ].x;
+		float y = pf.Path[index ].y;
 
 		pEntity->listDestiantion.push_back(sf::Vector2f(x,y));
 	}
@@ -42,7 +46,7 @@ void MoveTo::Execute(Miner* pEntity) // todo: review all function. Spaghetti flo
 {
 	sf::Time esliped = pEntity->clock.getElapsedTime();
 	
-	//if(esliped.asMilliseconds() > 20)
+	if(esliped.asMilliseconds() > 20)
 	{
 		pEntity->clock.restart();
 		sf::Vector2f nextDestination = pEntity->listDestiantion[0];
@@ -53,7 +57,6 @@ void MoveTo::Execute(Miner* pEntity) // todo: review all function. Spaghetti flo
 
 		// the same of "float distaneTravaled = esliped.asMilliseconds()* pEntity->velocity /1000;"
 		float distaneTravaled = esliped.asMilliseconds()* pEntity->velocity * 1e-3f;
-
 
 		dir.x *= distaneTravaled;
 		dir.y *= distaneTravaled;

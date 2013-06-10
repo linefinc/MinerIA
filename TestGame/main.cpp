@@ -107,7 +107,7 @@ int main()
         }
 
 		// update
-		//myMiner->Update();
+		myMiner->Update();
 
 		// render
         window.clear();
@@ -115,11 +115,7 @@ int main()
 		window.draw(*sgoBank);
 		window.draw(*sgoHome);
 		window.draw(*sgoMine);
-		
-	/*	sf::Vector2f old = myMiner->GetGamePosition();
-		myMiner->SetGamePosition(old);*/
 		window.draw(*myMiner);
-/*	    myMiner->SetGamePosition(old);*/
 
 		window.display();
     }

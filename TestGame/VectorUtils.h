@@ -37,5 +37,12 @@ public:
 		int Y1 = x * 16 + y * 16;
 		return sf::Vector2f(X1,Y1);
 	}
+
+	inline static const sf::Vector2f ConvertToScreenSpace(float x, float y, int ScreenWidth)
+	{
+		float X1 = x * 32 - y * 32 + ScreenWidth /2 - 32;
+		float Y1 = x * 16 + y * 16;
+		return sf::Vector2f(X1,Y1);
+	}
 };
 

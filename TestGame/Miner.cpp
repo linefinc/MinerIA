@@ -105,3 +105,11 @@ void Miner::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(sprite, states);
 }
+
+void Miner::SetGamePosition(sf::Vector2f Position)
+{
+	GamePosition = Position;
+	sf::Vector2f screenPos = VectorUtils::ConvertToScreenSpace(Position.x,Position.y,800);
+	screenPos.y -= 32;
+	sprite.setPosition(screenPos);
+}

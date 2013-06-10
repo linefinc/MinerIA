@@ -67,11 +67,8 @@ public:
 	}
 
 
-	void SetGamePosition(sf::Vector2f Position)
-	{
-		GamePosition = Position;
-		sprite.setPosition(VectorUtils::ConvertToScreenSpace(Position.x,Position.y,800));
-	}
+	void SetGamePosition(sf::Vector2f Position);
+
 	const StaticGameObject* sgoHome;
 	const StaticGameObject* sgoBank;
 	const StaticGameObject* sgoMine;

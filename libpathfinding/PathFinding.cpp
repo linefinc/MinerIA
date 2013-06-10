@@ -185,3 +185,41 @@ int PathFinder::FindNodeByCoordinate(int x ,int y) const
 
 	return -1;
 }
+
+void PathFinder::Optimize(void)
+{
+	vector<Point2d> outPath(Path);
+	int index = 0;
+	
+	while ((outPath.size() -1 ) > index)
+	{
+		char dx1 = outPath[index].dx;
+		char dy1 = outPath[index].dy;
+		char dx2 = outPath[index + 1 ].dx;
+		char dy2 = outPath[index + 1 ].dy;
+
+		if((dx1 == dx2) && (dy1 == dy2))
+		{
+			outPath.erase(outPath.begin() + index);
+		}
+		else
+		{
+			index ++;
+		}
+	}
+
+	Path = outPath;
+
+}
+
+void PathFinder::Reverse(void)
+{
+	vector<Point2d> outPath;
+	// reverse order
+	for(int index = Path.size() -1 ; index > -1 ; index--)
+	{
+		outPath.push_back(Path[index]);
+	}
+
+	Path = outPath;
+}
