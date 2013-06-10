@@ -91,11 +91,6 @@ void Miner::AddTexture(const char* filename)
 	}
 
 	textureList.push_back(texture);
-	
-	
-	
-
-	
 
 }
 
@@ -105,3 +100,4 @@ void Miner::setTexturebyID(unsigned int ID)
 	this->setTexture(*textureList[ID]);
 
 }
+

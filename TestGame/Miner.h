@@ -24,6 +24,9 @@ private:
 	void AddTexture(const char* filename);
 
 	vector<sf::Texture*> textureList;
+
+
+	sf::Vector2f GamePosition;
 public:
 	
 
@@ -60,7 +63,17 @@ public:
 
 	void setTexturebyID(unsigned int ID);
 
+	sf::Vector2f GetGamePosition(void) const
+	{
+		return GamePosition;
+	}
 
+
+	void SetGamePosition(sf::Vector2f Position)
+	{
+		GamePosition = Position;
+		this->setPosition(VectorUtils::ConvertToScreenSpace(Position.x,Position.y,800));
+	}
 	const StaticGameObject* sgoHome;
 	const StaticGameObject* sgoBank;
 	const StaticGameObject* sgoMine;

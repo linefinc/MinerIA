@@ -10,10 +10,10 @@
 void EnterMinAndDIigForNugget::Enter(Miner* pEntity)
 {
 	//todo: fix here
-	float distance2 = VectorUtils::Distance2(pEntity->GetLocation(),pEntity->sgoMine->getPosition());
+	float distance2 = VectorUtils::Distance2(pEntity->GetGamePosition(),pEntity->sgoMine->GetGamePosition());
 	if( distance2 > 10.0f)	// todo: remove magic number
 	{
-		pEntity->FinalDestiantion = pEntity->sgoMine->getPosition();
+		pEntity->FinalDestiantion = pEntity->sgoMine->GetGamePosition();
 		pEntity->ChangeState(&MoveToIstance);
 		return;
 	}

@@ -11,10 +11,10 @@ void GoHomeAndSleep::Enter(Miner* pEntity)
 {
 	//todo: fix here
 	//StaticGameObject* sgo =(StaticGameObject*) GameObjectManager.getInstance().findGameObjectByName("HOME").get();
-	float distance2 = VectorUtils::Distance2(pEntity->GetLocation(),pEntity->sgoHome->getPosition());
+	float distance2 = VectorUtils::Distance2(pEntity->GetGamePosition(),pEntity->sgoHome->GetGamePosition());
 	if( distance2 > 10.0f)	// todo: remove magic number
 	{
-		pEntity->FinalDestiantion = pEntity->sgoHome->getPosition();
+		pEntity->FinalDestiantion = pEntity->sgoHome->GetGamePosition();
 		pEntity->ChangeState(&MoveToIstance);
 		return;
 	}

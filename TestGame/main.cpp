@@ -55,37 +55,36 @@ int main()
 	//	Setup Home
 	//
 	StaticGameObject* sgoHome = new StaticGameObject(gom.GetNextID(),"HOME");
-	sgoHome->setPosition(VectorUtils::ConvertToScreenSpace(1,5,800));
+	sgoHome->sprite.setPosition(VectorUtils::ConvertToScreenSpace(1,5,800));
 	
 	sf::Texture* pTextureHome  = new sf::Texture();
 	pTextureHome->loadFromFile("../data/base/base_0004.png");
-	sgoHome->setTexture(*pTextureHome);
+	sgoHome->sprite.setTexture(*pTextureHome);
 
 	//
 	//	Setup Mine
 	//
 	StaticGameObject* sgoMine = new StaticGameObject(gom.GetNextID(),"MINE");
-	sgoMine->setPosition(VectorUtils::ConvertToScreenSpace(8,1,800));
+	sgoMine->sprite.setPosition(VectorUtils::ConvertToScreenSpace(8,1,800));
 	
 	sf::Texture* pTextureMine  = new sf::Texture();
 	pTextureMine->loadFromFile("../data/base/base_0006.png");
-	sgoMine->setTexture(*pTextureMine);
+	sgoMine->sprite.setTexture(*pTextureMine);
 	//
 	//	Setup Bank
 	//
 	StaticGameObject* sgoBank = new StaticGameObject(gom.GetNextID(),"BANK");
-	sgoBank->setPosition(VectorUtils::ConvertToScreenSpace(10,10,800));
+	sgoBank->sprite.setPosition(VectorUtils::ConvertToScreenSpace(10,10,800));
 
 	sf::Texture* pTextureBank  = new sf::Texture();
 	pTextureBank->loadFromFile("../data/base/base_0004.png");
-	sgoBank->setTexture(*pTextureBank);
+	sgoBank->sprite.setTexture(*pTextureBank);
 	//
 	//	Miner setup
 	//
 	shared_ptr<Miner> myMiner (new Miner(gom.GetNextID()));
-	sf::Vector2f pos = sgoHome->getPosition();
 	
-	myMiner->setPosition(pos);	// setup miner at home
+	myMiner->SetGamePosition(sgoHome->GetGamePosition());	// setup miner at home
 	myMiner->sgoBank = sgoBank;
 	myMiner->sgoHome  = sgoHome;
 	myMiner->sgoMine = sgoMine;
@@ -113,11 +112,16 @@ int main()
 		// render
         window.clear();
 		window.draw(*map);
-		window.draw(*sgoBank);
-		window.draw(*sgoHome);
-		window.draw(*sgoMine);
+		window.draw(sgoBank->sprite);
+		window.draw(sgoHome->sprite);
+		window.draw(sgoMine->sprite);
+		
+		sf::Vector2f old = myMiner->getPosition();
+		myMiner->setPosition(old.x,old.y -32);
 		window.draw(*myMiner);
-        window.display();
+        myMiner->setPosition(old);
+
+		window.display();
     }
 
     return 0;
