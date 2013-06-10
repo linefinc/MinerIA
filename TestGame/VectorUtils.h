@@ -30,7 +30,6 @@ public:
 
 		return temp;
 	}
-	
 
 	inline static const sf::Vector2f ConvertToScreenSpace(int x, int y, int ScreenWidth)
 	{

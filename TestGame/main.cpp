@@ -55,8 +55,8 @@ int main()
 	//	Setup Home
 	//
 	StaticGameObject* sgoHome = new StaticGameObject(gom.GetNextID(),"HOME");
-	sgoHome->sprite.setPosition(VectorUtils::ConvertToScreenSpace(1,5,800));
-	
+	sgoHome->SetGamePosition(sf::Vector2f(1.0f,5.0f));
+
 	sf::Texture* pTextureHome  = new sf::Texture();
 	pTextureHome->loadFromFile("../data/base/base_0004.png");
 	sgoHome->sprite.setTexture(*pTextureHome);
@@ -65,7 +65,7 @@ int main()
 	//	Setup Mine
 	//
 	StaticGameObject* sgoMine = new StaticGameObject(gom.GetNextID(),"MINE");
-	sgoMine->sprite.setPosition(VectorUtils::ConvertToScreenSpace(8,1,800));
+	sgoMine->SetGamePosition(sf::Vector2f(8.0f,1.0f));
 	
 	sf::Texture* pTextureMine  = new sf::Texture();
 	pTextureMine->loadFromFile("../data/base/base_0006.png");
@@ -74,7 +74,7 @@ int main()
 	//	Setup Bank
 	//
 	StaticGameObject* sgoBank = new StaticGameObject(gom.GetNextID(),"BANK");
-	sgoBank->sprite.setPosition(VectorUtils::ConvertToScreenSpace(10,10,800));
+	sgoBank->SetGamePosition(sf::Vector2f(10.0f,10.0f));
 
 	sf::Texture* pTextureBank  = new sf::Texture();
 	pTextureBank->loadFromFile("../data/base/base_0004.png");
@@ -116,10 +116,10 @@ int main()
 		window.draw(*sgoHome);
 		window.draw(*sgoMine);
 		
-		sf::Vector2f old = myMiner->getPosition();
-		myMiner->setPosition(old.x,old.y -32);
+	/*	sf::Vector2f old = myMiner->GetGamePosition();
+		myMiner->SetGamePosition(old);*/
 		window.draw(*myMiner);
-        myMiner->setPosition(old);
+/*	    myMiner->SetGamePosition(old);*/
 
 		window.display();
     }

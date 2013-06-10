@@ -12,7 +12,7 @@
 #include "myMap.h"
 
 
-class Miner: public BaseGameEntity, public sf::Sprite, public GameObject
+class Miner: public BaseGameEntity, public GameObject , public sf::Drawable
 {
 private:
 	State<Miner>* pGlobalState;
@@ -27,8 +27,11 @@ private:
 
 
 	sf::Vector2f GamePosition;
+	sf::Sprite sprite;
+	// draw implementation used form sfml
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 public:
-	
+
 
 	int Thist;
 	int GoldCarried;
@@ -50,12 +53,7 @@ public:
 
 	void ChangeState(State<Miner>* pNewState);
 
-	void RevertPreviusSatate(void);
-
-	sf::Vector2f GetLocation(void) { return this->getPosition();};
-
-	void SetLocation(sf::Vector2f loc) { this->setPosition(loc); };
-	
+	void RevertPreviusSatate(void);	
 
 	int GetID(void) const {return ID;} ;
 
@@ -72,7 +70,7 @@ public:
 	void SetGamePosition(sf::Vector2f Position)
 	{
 		GamePosition = Position;
-		this->setPosition(VectorUtils::ConvertToScreenSpace(Position.x,Position.y,800));
+		sprite.setPosition(VectorUtils::ConvertToScreenSpace(Position.x,Position.y,800));
 	}
 	const StaticGameObject* sgoHome;
 	const StaticGameObject* sgoBank;

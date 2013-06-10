@@ -38,8 +38,8 @@ Miner::Miner(int ID)
 	//
 	// setup 
 	//
-	this->setTexture(*textureList[0]);
-	this->setTextureRect(sf::IntRect(0, 0, 64, 64));
+	sprite.setTexture(*textureList[0]);
+	sprite.setTextureRect(sf::IntRect(0, 0, 64, 64));
 
 	// starts the clock
 	clock.restart();
@@ -97,7 +97,11 @@ void Miner::AddTexture(const char* filename)
 void Miner::setTexturebyID(unsigned int ID)
 {
 
-	this->setTexture(*textureList[ID]);
+	sprite.setTexture(*textureList[ID]);
 
 }
 
+void Miner::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	target.draw(sprite, states);
+}
