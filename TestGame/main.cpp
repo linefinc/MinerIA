@@ -112,9 +112,9 @@ int main()
 		// render
         window.clear();
 		window.draw(*map);
-		window.draw(sgoBank->sprite);
-		window.draw(sgoHome->sprite);
-		window.draw(sgoMine->sprite);
+		window.draw(*sgoBank);
+		window.draw(*sgoHome);
+		window.draw(*sgoMine);
 		
 		sf::Vector2f old = myMiner->getPosition();
 		myMiner->setPosition(old.x,old.y -32);

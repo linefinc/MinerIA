@@ -8,10 +8,14 @@
 
 using namespace std;
 
-class StaticGameObject:  public GameObject
+class StaticGameObject:  public GameObject,  public sf::Drawable
 {
+private:
 	int ID;
 	string Name;
+
+	// draw implementation used form sfml
+	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 public: 
 	sf::Sprite sprite;
 

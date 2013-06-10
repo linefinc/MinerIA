@@ -24,3 +24,8 @@ string StaticGameObject::GetName() const
 {
 	return Name;
 }
+
+void StaticGameObject::draw(sf::RenderTarget& target, sf::RenderStates states) const
+{
+	target.draw(sprite, states);
+}
