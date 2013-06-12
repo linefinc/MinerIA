@@ -9,7 +9,8 @@ private:
 	State<Miner>* pGlobalState;
 	State<Miner>* pCurrentState;
 	State<Miner>* pPreviousState;
-	
+	int _ID;
+
 public:
 	enum eLocations
 	{
@@ -32,6 +33,11 @@ public:
 	// constuctor
 	Miner(int ID);
 	~Miner(void);
+
+	int GetID(void)
+	{
+		return _ID;
+	}
 
 	void Update(void);
 

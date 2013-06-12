@@ -43,15 +43,16 @@ bool PathFinder::calc()
 			return true;// todo: make the path here
 		}
 
+
 		// remove currentNode from OpenSet
 		OpenSet.erase(OpenSet.begin()+indexLowerScore);
 		// add currentNode to CloseSet
 		ClosedSet.push_back(currenctNode);
 
 		
-
-		printf("[%02d]Current Node %d %d %f\n",Counter ,currenctNode.x, currenctNode.y,currenctNode.distance );
-		
+#ifdef DEBUG
+		printf("[%02d]Current Node %d %d %.0f\n",Counter ,currenctNode.x, currenctNode.y,currenctNode.distance );
+#endif 
 		
 		ProcessNeighbor( currenctNode, +1,+1);
 		ProcessNeighbor( currenctNode, +1,+0);
@@ -72,7 +73,7 @@ bool PathFinder::calc()
 	return false;
 }
 
-bool PathFinder::ProcessNeighbor(const Point2d& currenctNode, int dx, int dy)
+void PathFinder::ProcessNeighbor(const Point2d& currenctNode, int dx, int dy)
 {
 	Point2d newNode(currenctNode.x+dx,currenctNode.y+dy);
 	newNode.dx = dx;
@@ -82,25 +83,25 @@ bool PathFinder::ProcessNeighbor(const Point2d& currenctNode, int dx, int dy)
 	{
 		// bad node to explore
 		ClosedSet.push_back(newNode);
-		return false;
+		return;
 	}
 
 	if(NodeIsInOpenSet(newNode) == true)
 	{
 		ClosedSet.push_back(newNode);
-		return false;
+		return;;
 	}
 
 	if(NodeIsInCloseSet(newNode) == true)
 	{
 		ClosedSet.push_back(newNode);
-		return false;
+		return;
 	}
 
 	newNode.CalcDistance(destination);
 	OpenSet.push_front(newNode);
 
-	return true;
+	return;
 }
 
 bool PathFinder::NodeIsInCloseSet(const Point2d& node) const

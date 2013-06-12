@@ -7,7 +7,7 @@ class mMap: public FindableMap
 private:
 	int width; 
 	int height;
-
+	int scale;
 public:
 	mMap(int weidth, int height);
 	~mMap(void);
@@ -20,5 +20,14 @@ public:
 
 	bool CellIsEmpty(int x,int y) const;
 
+	void setGridScale(int scale) 
+	{
+		this->scale = scale;
+	}
+
+	int getGridScale(void)
+	{
+		return scale;
+	}
 };
 

@@ -2,7 +2,7 @@
 #include "VectorUtils.h"
 
 myMap::myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide)// todo: cange coordiante sistem to fit with game coordinte
-	:width(width),height(height),boxSide(boxSide),ScreenWidth(ScreenWidth)
+	:width(width),height(height),boxSide(boxSide),ScreenWidth(ScreenWidth),scale(1)
 {
 	map = new unsigned char [width * height];
 	memset(map, 0, width * height);

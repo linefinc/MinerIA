@@ -8,6 +8,7 @@ mMap::mMap(int width, int height)
 	this->height = height;
 	map = new unsigned char [width * height];
 	memset(map,0,width * height);
+	scale = 1;
 }
 
 

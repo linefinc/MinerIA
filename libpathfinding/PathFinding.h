@@ -32,7 +32,7 @@ public:
 private:
 	int GetLowerScoreNodeFromOpenSet() const;
 
-	bool ProcessNeighbor(const Point2d& currenctNode, int dx, int dy);
+	void ProcessNeighbor(const Point2d& currenctNode, int dx, int dy);
 
 	bool NodeIsInCloseSet(const Point2d& node) const;
 	

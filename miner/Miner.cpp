@@ -4,7 +4,7 @@
 #include "VisitBankAndDepositGold.h"
 
 Miner::Miner(int ID)
-:BaseGameEntity(ID)
+:_ID(ID)
 {
 	this->MaxGoldCarried = 10;
 	this->CC = 0;

@@ -9,6 +9,7 @@ class myMap: public FindableMap, public sf::Drawable
 private:
 	int width; 
 	int height;
+	int scale;
 	unsigned int ScreenWidth;
 	// draw implementation used form sfml
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
@@ -36,5 +37,15 @@ public:
 
 	bool CellIsEmpty(int x,int y) const;
 
+
+	void setGridScale(int scale) 
+	{
+		this->scale = scale;
+	}
+
+	int getGridScale(void)
+	{
+		return scale;
+	}
 };
 
