@@ -131,16 +131,17 @@ int main()
 			}
         }
 
-		if(counter >= 10)
+		int renderTime = clock.getElapsedTime().asMilliseconds() ;
+		if(renderTime >= 100)
 		{
-			int renderTime = clock.getElapsedTime().asMilliseconds() ;
+			
 
-			char str [10];
-			sprintf(str,"Render Time %d ms",renderTime);
+			char str [50];
+			sprintf_s(str,sizeof(str),"Render Time %d ms",renderTime/counter);
 			textRenderTime.setString(str);
 
-			int fps = 100 / renderTime ;
-			sprintf(str,"fps %d",fps);
+			unsigned int fps = 1000* counter / renderTime ;
+			sprintf_s(str,sizeof(str),"fps %d",fps);
 			textFps.setString(str);
 
 
