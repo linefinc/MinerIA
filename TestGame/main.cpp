@@ -92,8 +92,33 @@ int main()
 	myMiner->velocity = 4e-2f;
 	
 	//
+	//	text
 	//
+	sf::Font font;
+	if (!font.loadFromFile("../data/sansation.ttf"))
+	{
+		// error...
+	}
+
+	sf::Text textFps;
+	textFps.setFont(font);
+	textFps.setCharacterSize(24);
+	textFps.setColor(sf::Color::Red);
+	textFps.setStyle(sf::Text::Bold);
+	textFps.setString("fps");
+
+	sf::Text textRenderTime (textFps);
+	textRenderTime.setString("render time");
+	textRenderTime.setPosition(0.0f,24.0f);
 	//
+	//	Main loop
+	//
+
+	sf::Clock clock;
+	clock.restart();
+	float lastTime = 0;
+
+	unsigned int counter = 0;
 
     while (window.isOpen())
     {
@@ -106,6 +131,23 @@ int main()
 			}
         }
 
+		if(counter >= 10)
+		{
+			int renderTime = clock.getElapsedTime().asMilliseconds() ;
+
+			char str [10];
+			sprintf(str,"Render Time %d ms",renderTime);
+			textRenderTime.setString(str);
+
+			int fps = 100 / renderTime ;
+			sprintf(str,"fps %d",fps);
+			textFps.setString(str);
+
+
+			clock.restart();
+			counter = 0;
+		}
+		counter++;
 		// update
 		myMiner->Update();
 
@@ -116,7 +158,8 @@ int main()
 		window.draw(*sgoHome);
 		window.draw(*sgoMine);
 		window.draw(*myMiner);
-
+		window.draw(textFps);
+		window.draw(textRenderTime);
 		window.display();
     }
 
