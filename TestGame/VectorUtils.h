@@ -17,6 +17,15 @@ public:
 		return temp1 + temp2;
 	}
 
+	inline static const float Distance(const sf::Vector2f a,const sf::Vector2f b)
+	{
+		float temp1 = a.x - b.x;
+		temp1 *= temp1;
+		float temp2 = a.y - b.y;
+		temp2 *= temp2;
+		return sqrt(temp1 + temp2);
+	}
+
 	inline static const sf::Vector2f Normalize(const sf::Vector2f vec)
 	{
 		float d = sqrt(vec.x *vec.x + vec.y * vec.y);

@@ -46,47 +46,54 @@ void MoveTo::Execute(Miner* pEntity) // todo: review all function. Spaghetti flo
 {
 	sf::Time esliped = pEntity->clock.getElapsedTime();
 	
-	if(esliped.asMilliseconds() > 20)
-	{
-		pEntity->clock.restart();
-		sf::Vector2f nextDestination = pEntity->listDestiantion[0];
-		float distance2 = VectorUtils::Distance2(pEntity->GetGamePosition(),nextDestination);
-	
-		sf::Vector2f dir = nextDestination - pEntity->GetGamePosition();
-		dir = VectorUtils::Normalize(dir);
 
-		// the same of "float distaneTravaled = esliped.asMilliseconds()* pEntity->velocity /1000;"
+	if(esliped.asMilliseconds() > 100)	// check to avoid too small moviment
+	{
+		
+		pEntity->clock.restart();		// reset counter
+		//
+		//	calc distance from destination and local position
+		//
+		sf::Vector2f nextDestination = pEntity->listDestiantion[0];
+		// 
+		//	calc distance travaled from the next render
+		//	Note: 1e-3f = 1/1000
+		//	
 		float distaneTravaled = esliped.asMilliseconds()* pEntity->velocity * 1e-3f;
 
-		dir.x *= distaneTravaled;
-		dir.y *= distaneTravaled;
 
-		if(distance2 > VectorUtils::Length2(dir))
+		if((distaneTravaled*distaneTravaled)< VectorUtils::Distance2(nextDestination,pEntity->GetGamePosition()))
 		{
-			pEntity->SetGamePosition( nextDestination + dir);
+			//
+			// here normal move
+			//
+			sf::Vector2f newDirection = VectorUtils::Normalize(nextDestination - pEntity->GetGamePosition());
+			newDirection *= distaneTravaled;
+			newDirection += pEntity->GetGamePosition();
+			pEntity->SetGamePosition(newDirection);
+			
 		}
 		else
 		{
-			pEntity->SetGamePosition( nextDestination);
-			if( nextDestination == pEntity->FinalDestiantion)
-			{
-				pEntity->RevertPreviusSatate();
-				return;
-			}
-			else
-			{
-				// erase the top position from list destiantion
-				pEntity->listDestiantion.erase(pEntity->listDestiantion.begin());
-				
-				// calc the new angle from local and next positions
-			//	sf::Vector2f dir = pEntity->listDestiantion[0] - pEntity->getPosition();
-				
-				//float angle = atan2f(dir.y,dir.x) *180 /PI;
-				//SwitchSprite(pEntity,angle);
-				
-	
-			}
+			//
+			// close move.
+			//
+			pEntity->SetGamePosition(nextDestination);
+			pEntity->listDestiantion.erase(pEntity->listDestiantion.begin());	// remove first element
+			
+			// calc new angle
+			sf::Vector2f newDirection = VectorUtils::Normalize(nextDestination - pEntity->GetGamePosition());
+			float angle = atan2(newDirection.y,newDirection.x);
+			// TODO:recalc sprite number 
+			// here recalc sprite number 
+			SwitchSprite(pEntity,angle);
 		}
+
+		if( pEntity->listDestiantion.size() == 0)
+		{				
+			pEntity->RevertPreviusSatate();
+		}
+		
 		
 	
 

@@ -17,7 +17,7 @@ Miner::Miner(int ID)
 	this->sgoBank = NULL;
 	this->sgoHome = NULL;
 	this->sgoMine = NULL;
-	this->velocity= .404f;
+	this->velocity= 1.0f;
 
 	//this->SetLocation(eLocations::Home); //todo: fix here
 	this->pCurrentState = &GoHomeAndSleepIstance;

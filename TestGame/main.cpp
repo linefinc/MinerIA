@@ -89,7 +89,7 @@ int main()
 	myMiner->sgoHome  = sgoHome;
 	myMiner->sgoMine = sgoMine;
 	myMiner->map = map;
-	myMiner->velocity = 4e-2f;
+	myMiner->velocity = 4.0f;
 	
 	//
 	//	text
