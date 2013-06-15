@@ -17,8 +17,8 @@ PathFinder::PathFinder(const FindableMap* pMap,Point2d start, Point2d destinatio
 
 bool PathFinder::calc()
 {
-	printf("[%02d]Start Node %d %d\n",Counter ,start.x, start.y );
-	printf("[%02d]Destiantio Node %d %d\n",Counter ,destination.x, destination.y );
+	//printf("[%02d]Start Node %d %d\n",Counter ,start.x, start.y );
+	//printf("[%02d]Destiantio Node %d %d\n",Counter ,destination.x, destination.y );
 
 	// initialize Open Set
 	start.CalcDistance(destination);
@@ -51,7 +51,7 @@ bool PathFinder::calc()
 
 		
 #ifdef DEBUG
-		printf("[%02d]Current Node %d %d %.0f\n",Counter ,currenctNode.x, currenctNode.y,currenctNode.distance );
+		//printf("[%02d]Current Node %d %d %.0f\n",Counter ,currenctNode.x, currenctNode.y,currenctNode.distance );
 #endif 
 		
 		ProcessNeighbor( currenctNode, +1,+1);

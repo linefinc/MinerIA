@@ -24,6 +24,7 @@ Miner::Miner(int ID)
 	this->pGlobalState = NULL;
 	
 	// render part
+	AddTexture("../data/mower/0000.png");
 	AddTexture("../data/mower/0001.png");
 	AddTexture("../data/mower/0002.png");
 	AddTexture("../data/mower/0003.png");
@@ -31,10 +32,34 @@ Miner::Miner(int ID)
 	AddTexture("../data/mower/0005.png");
 	AddTexture("../data/mower/0006.png");
 	AddTexture("../data/mower/0007.png");
-
 	AddTexture("../data/mower/0008.png");
 	AddTexture("../data/mower/0009.png");
+
 	AddTexture("../data/mower/0010.png");
+	AddTexture("../data/mower/0011.png");
+	AddTexture("../data/mower/0012.png");
+	AddTexture("../data/mower/0013.png");
+	AddTexture("../data/mower/0014.png");
+	AddTexture("../data/mower/0015.png");
+	AddTexture("../data/mower/0016.png");
+	AddTexture("../data/mower/0017.png");
+	AddTexture("../data/mower/0018.png");
+	AddTexture("../data/mower/0019.png");
+
+	AddTexture("../data/mower/0020.png");
+	AddTexture("../data/mower/0021.png");
+	AddTexture("../data/mower/0022.png");
+	AddTexture("../data/mower/0023.png");
+	AddTexture("../data/mower/0024.png");
+	AddTexture("../data/mower/0025.png");
+	AddTexture("../data/mower/0026.png");
+	AddTexture("../data/mower/0027.png");
+	AddTexture("../data/mower/0028.png");
+	AddTexture("../data/mower/0029.png");
+	AddTexture("../data/mower/0030.png");
+
+	AddTexture("../data/mower/0031.png");
+	AddTexture("../data/mower/0032.png");
 	//
 	// setup 
 	//

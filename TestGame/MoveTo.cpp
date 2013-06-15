@@ -81,9 +81,14 @@ void MoveTo::Execute(Miner* pEntity) // todo: review all function. Spaghetti flo
 			pEntity->SetGamePosition(nextDestination);
 			pEntity->listDestiantion.erase(pEntity->listDestiantion.begin());	// remove first element
 			
+		}
+
+		if( pEntity->listDestiantion.size() > 0)
+		{
+			sf::Vector2f nextDestination = pEntity->listDestiantion[0];
 			// calc new angle
 			sf::Vector2f newDirection = VectorUtils::Normalize(nextDestination - pEntity->GetGamePosition());
-			float angle = atan2(newDirection.y,newDirection.x);
+			float angle = atan2(newDirection.y,newDirection.x) / PI *180.0;
 			// TODO:recalc sprite number 
 			// here recalc sprite number 
 			SwitchSprite(pEntity,angle);
@@ -120,36 +125,40 @@ void MoveTo::SwitchSprite(Miner* pEntity,float angle)
 //	value2 = value2 << 4;
 //	value2 += value1;
 
-	int iAngle = angle/90*2;
+	int iAngle = angle/45;
 
 
 	switch(iAngle)
 	{
-	
-
-	case -2:	// 90°
-		pEntity->setTexturebyID(5); // 0006.png ->(5)
+	// fixed
+	case 4:
+	case -4:	//	180°
+		pEntity->setTexturebyID(24);
 		return;
-	
-	//case -1:	// 45°
-	//	pEntity->setTexturebyID(9);	// 0003
-	//	return;
-	case 0:	// 0°
-		pEntity->setTexturebyID(3); // 0004.png -> (3)
+	case -3:	//	135°
+		pEntity->setTexturebyID(20);
 		return;
-	/*case 1:	
-		pEntity->setTexturebyID(9);	
-		return;*/
-	case 2:		//90°
-		pEntity->setTexturebyID(1);	// 0002.png -> (1)
+	case -2:	//	90°
+		pEntity->setTexturebyID(16);
 		return;
-	case 4:		//180°
-		pEntity->setTexturebyID(7);	// 0008.png	-> (7)
+	case -1:	//	45°
+		pEntity->setTexturebyID(12);
+		return;
+	case 0:		//	0°
+		pEntity->setTexturebyID(8);
+		return;
+	case 1:		//	45°
+		pEntity->setTexturebyID(4);
+		return;
+	case 2:		//	90°
+		pEntity->setTexturebyID(0);
+		return;
+	case 3:		//	90°
+		pEntity->setTexturebyID(28);
 		return;
 	default:
+		pEntity->setTexturebyID(33);
 		return;
 	}
-
-//	pEntity->setTexturebyID(dx);
 
 }
