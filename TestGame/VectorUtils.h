@@ -42,8 +42,8 @@ public:
 
 	inline static const sf::Vector2f ConvertToScreenSpace(int x, int y, int ScreenWidth)
 	{
-		int X1 = x * 32 - y * 32 + ScreenWidth /2 - 32;
-		int Y1 = x * 16 + y * 16;
+		float X1 = x * 32.0f - y * 32.0f + ScreenWidth /2 - 32.0f;
+		float Y1 = x * 16.0f + y * 16.0f;
 		return sf::Vector2f(X1,Y1);
 	}
 

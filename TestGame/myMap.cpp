@@ -18,11 +18,11 @@ myMap::myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide
 	TextureList->push_back(pTexture);
 	// base 002
 	pTexture  = new sf::Texture();
-	pTexture->loadFromFile("../data/base/base_0002.png");
+	pTexture->loadFromFile("../data/base/base_0003.png");
 	TextureList->push_back(pTexture);
 	// base 003
 	pTexture  = new sf::Texture();
-	pTexture->loadFromFile("../data/base/base_0003.png");
+	pTexture->loadFromFile("../data/base/base_0002.png");
 	TextureList->push_back(pTexture);
 	
 

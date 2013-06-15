@@ -58,7 +58,7 @@ int main()
 	sgoHome->SetGamePosition(sf::Vector2f(1.0f,5.0f));
 
 	sf::Texture* pTextureHome  = new sf::Texture();
-	pTextureHome->loadFromFile("../data/base/base_0004.png");
+	pTextureHome->loadFromFile("../data/base/base_0005.png");
 	sgoHome->sprite.setTexture(*pTextureHome);
 
 	//
@@ -79,6 +79,36 @@ int main()
 	sf::Texture* pTextureBank  = new sf::Texture();
 	pTextureBank->loadFromFile("../data/base/base_0004.png");
 	sgoBank->sprite.setTexture(*pTextureBank);
+
+	//
+	//	Setup RAFINERY
+	//
+	StaticGameObject* sgoRafinery = new StaticGameObject(gom.GetNextID(),"RAFINERY");
+	
+
+	sf::Texture* pTextureRafinery  = new sf::Texture();
+	bool rc = pTextureRafinery->loadFromFile("../data/refinery/0001.png");
+	if(rc == false)
+	{
+		printf("error\n");
+	}
+	sgoRafinery->sprite.setTexture(*pTextureRafinery);
+
+	int dx = 1;
+	int dy = pTextureRafinery->getSize().y / 32  - 1;
+
+	sgoRafinery->SetGamePosition(sf::Vector2f(10.0f - dx - dy ,10.0f - dy +dx));
+	
+	
+	map->SetValue(8,10,1);
+	map->SetValue(9,10,1);
+	map->SetValue(10,8,1);
+	map->SetValue(10,9,1);
+	map->SetValue(9,9,1);
+	map->SetValue(9,8,1);
+	map->SetValue(8,9,1);
+	map->SetValue(8,8,1);
+
 	//
 	//	Miner setup
 	//
@@ -155,12 +185,15 @@ int main()
 		// render
         window.clear();
 		window.draw(*map);
+		
 		window.draw(*sgoBank);
 		window.draw(*sgoHome);
 		window.draw(*sgoMine);
+		window.draw(*sgoRafinery);
 		window.draw(*myMiner);
 		window.draw(textFps);
 		window.draw(textRenderTime);
+		
 		window.display();
     }
 
