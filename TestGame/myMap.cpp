@@ -1,11 +1,16 @@
 #include "myMap.h"
 #include "VectorUtils.h"
+#include <limits>
 
 myMap::myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide)// todo: cange coordiante sistem to fit with game coordinte
-	:width(width),height(height),boxSide(boxSide),ScreenWidth(ScreenWidth),scale(1),minX(0),minY(0),maxX(0),maxY(0)
+	:width(width),height(height),boxSide(boxSide),ScreenWidth(ScreenWidth),scale(1)
 {
 	map = new std::vector<MapItem> ();
-
+	// reset limit
+	minX = INT_MAX;
+	minY = INT_MAX;
+	maxX = INT_MIN;
+	maxY = INT_MIN;
 	// texure array
 	TextureList = new std::vector<sf::Texture*>();
 	
@@ -33,6 +38,8 @@ myMap::myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide
 			
 			AddCell(x,y,0,rs);
 		}
+
+
 }
 
 
@@ -61,28 +68,41 @@ void myMap::AddCell(int x, int y,unsigned char value, sf::Sprite* sprite)
 		maxY = y;
 }
 
-unsigned char myMap::GetValue(int x, int y)
+myMap::MapItem* myMap::GetCell(int x, int y) const
 {
-	return map->at(width*y+x).value;
+	// todo: use more efficient way to scan array
+	for(unsigned int index = 0; index < map->size(); index++)
+	{
+		if((map->at(index).x == x) && (map->at(index).y == y))
+		{
+			return &(map->at(index));
+		}
+	}
+
+	return NULL;
 }
 
 void myMap::SetValue(int x, int y, unsigned char val)
 {
-	int index = width*y+x;
-	map->at(index).value = val;
-
-	if (val > 0)
+	myMap::MapItem* pItem = GetCell(x,y);
+	
+	if(pItem != NULL)
 	{
-		map->at(index).sprite->setTexture(*TextureList->at(1),true);
+		pItem->value = val;
+		if (val > 0)
+		{
+			pItem->sprite->setTexture(*TextureList->at(1),true);
+		}
+		else
+		{
+			pItem->sprite->setTexture(*TextureList->at(0),true);
+		}
 	}
-	else
-	{
-		map->at(index).sprite->setTexture(*TextureList->at(0),true);
-	}
-
 }
 
-
+// Cell Is Empty
+// return true if the cell is wolkable
+// return flase if the cell is not wolkable
 bool myMap::CellIsEmpty(int x,int y) const
 {
 	if(( x < minX) || (y < minY))
@@ -95,9 +115,11 @@ bool myMap::CellIsEmpty(int x,int y) const
 		return false;
 	}
 
-	if( map->at(width *y +x).value == 0)
+	myMap::MapItem* pItem = GetCell(x,y);
+	
+	if(pItem != NULL)
 	{
-		return true;
+		return pItem->value == 0;
 	}
 
 	return false;
@@ -115,4 +137,31 @@ void myMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 		}
 	}
 
+}
+
+void myMap::Dump(const char* fileName) const
+{
+	FILE* fp = fopen(fileName,"w");
+	if( fp == NULL)
+	{
+		return;
+	}
+	for(int y = minY; y <= maxY ; y++)
+	{
+		for(int x = minX; x <= maxX ; x++)
+		{
+			myMap::MapItem* pItem = GetCell(x,y);
+			if( pItem == NULL)
+			{
+				fprintf(fp,"X;");
+			}
+			else
+			{
+				fprintf(fp,"%d;",pItem->value);
+			}
+		}
+		fprintf(fp,"\n");
+	}
+
+	fclose(fp);
 }

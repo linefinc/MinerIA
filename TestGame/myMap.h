@@ -38,6 +38,8 @@ private:
 	unsigned int ScreenWidth;
 	// draw implementation used form sfml
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+
+	MapItem* GetCell(int x, int y) const;
 public:
 	myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide);
 	~myMap(void);
@@ -51,11 +53,9 @@ public:
 	unsigned int boxSide;
 
 	
-
+	void Dump(const char* fileName) const;
 
 	std::vector<MapItem>* map;
-
-	unsigned char GetValue(int x, int y);
 
 	void SetValue(int x, int y, unsigned char val);
 

@@ -51,6 +51,17 @@ int main()
 	map->SetValue(5,1,1);
 	map->SetValue(5,2,1);
 	
+	
+	map->SetValue(8,10,1);
+	map->SetValue(9,10,1);
+	map->SetValue(10,8,1);
+	map->SetValue(10,9,1);
+	map->SetValue(9,9,1);
+	map->SetValue(9,8,1);
+	map->SetValue(8,9,1);
+	map->SetValue(8,8,1);
+
+	map->Dump("map.csv");
 	//
 	//	Setup Home
 	//
@@ -99,15 +110,15 @@ int main()
 
 	sgoRafinery->SetGamePosition(sf::Vector2f(10.0f - dx - dy ,10.0f - dy +dx));
 	
-	
-	map->SetValue(8,10,1);
-	map->SetValue(9,10,1);
-	map->SetValue(10,8,1);
-	map->SetValue(10,9,1);
-	map->SetValue(9,9,1);
-	map->SetValue(9,8,1);
-	map->SetValue(8,9,1);
-	map->SetValue(8,8,1);
+	//map->SetValue(8,10,1);
+	//map->SetValue(9,10,1);
+	//map->SetValue(10,8,1);
+	//map->SetValue(10,9,1);
+	//map->SetValue(9,9,1);
+	//map->SetValue(9,8,1);
+	//map->SetValue(8,9,1);
+	//map->SetValue(8,8,1);
+
 
 	//
 	//	Miner setup

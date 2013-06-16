@@ -48,12 +48,7 @@ bool PathFinder::calc()
 		OpenSet.erase(OpenSet.begin()+indexLowerScore);
 		// add currentNode to CloseSet
 		ClosedSet.push_back(currenctNode);
-
-		
-#ifdef DEBUG
-		//printf("[%02d]Current Node %d %d %.0f\n",Counter ,currenctNode.x, currenctNode.y,currenctNode.distance );
-#endif 
-		
+	
 		ProcessNeighbor( currenctNode, +1,+1);
 		ProcessNeighbor( currenctNode, +1,+0);
 		ProcessNeighbor( currenctNode, +1,-1);
