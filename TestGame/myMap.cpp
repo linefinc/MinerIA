@@ -2,11 +2,9 @@
 #include "VectorUtils.h"
 
 myMap::myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide)// todo: cange coordiante sistem to fit with game coordinte
-	:width(width),height(height),boxSide(boxSide),ScreenWidth(ScreenWidth),scale(1)
+	:width(width),height(height),boxSide(boxSide),ScreenWidth(ScreenWidth),scale(1),minX(0),minY(0),maxX(0),maxY(0)
 {
-	map = new unsigned char [width * height];
-	memset(map, 0, width * height);
-
+	map = new std::vector<MapItem> ();
 
 	// texure array
 	TextureList = new std::vector<sf::Texture*>();
@@ -24,20 +22,16 @@ myMap::myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide
 	pTexture  = new sf::Texture();
 	pTexture->loadFromFile("../data/base/base_0002.png");
 	TextureList->push_back(pTexture);
-	
-
-
-
 
 	for(int y = 0; y < height; y++)
 		for(int x = 0; x < width; x++)
 		{
-			unsigned int i = width * y+x;
+			
 			sf::Sprite* rs= new sf::Sprite();				
 			rs->setTexture(*TextureList->at(0),true);
 			rs->setPosition(VectorUtils::ConvertToScreenSpace(x,y,ScreenWidth));
-
-			listSprite.push_back(rs);
+			
+			AddCell(x,y,0,rs);
 		}
 }
 
@@ -46,39 +40,62 @@ myMap::~myMap(void)
 {
 }
 
+void myMap::AddCell(int x, int y,unsigned char value, sf::Sprite* sprite)
+{
+	
+	MapItem item;
+	item.x =x;
+	item.y = y;
+	item.value = value;
+	item.sprite = sprite;
+	map->push_back(item);
+
+	// update limit
+	if(x < minX)
+		minX = x;
+	if(x > maxX)
+		maxX = x;
+	if(y < minY)
+		minY = y;
+	if(y > maxY)
+		maxY = y;
+}
 
 unsigned char myMap::GetValue(int x, int y)
 {
-	return width*y +x;
+	return map->at(width*y+x).value;
 }
 
 void myMap::SetValue(int x, int y, unsigned char val)
 {
-	map[width*y+x] = val;
+	int index = width*y+x;
+	map->at(index).value = val;
+
 	if (val > 0)
 	{
-		listSprite[width*y+x]->setTexture(*TextureList->at(1),true);
+		map->at(index).sprite->setTexture(*TextureList->at(1),true);
 	}
 	else
 	{
-		listSprite[width*y+x]->setTexture(*TextureList->at(0),true);
+		map->at(index).sprite->setTexture(*TextureList->at(0),true);
 	}
 
 }
 
+
 bool myMap::CellIsEmpty(int x,int y) const
 {
-	if(( x < 0) || (y < 0))
+	if(( x < minX) || (y < minY))
 	{
 		return false;
 	}
 
-	if(( x >= width) || (y >= height))
+	if(( x > maxX) || (y > maxY))
 	{
 		return false;
 	}
 
-	if( map[width *y +x] == 0)
+	if( map->at(width *y +x).value == 0)
 	{
 		return true;
 	}
@@ -88,9 +105,14 @@ bool myMap::CellIsEmpty(int x,int y) const
 
 void myMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	for(unsigned int i=0; i < listSprite.size(); i++)
+	unsigned int totalcount = width * height;
+
+	for(unsigned int i=0; i < totalcount; i++)
 	{
-		target.draw(*listSprite[i], states);
+		if(map->at(i).sprite)
+		{
+			target.draw(*map->at(i).sprite, states);
+		}
 	}
 
 }
