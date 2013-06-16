@@ -11,10 +11,17 @@
 #include "StaticGameObject.h"
 #include "cResurceManager.h"
 
+#include <Python.h>
+#ifdef _DEBUG
+#   define Py_DEBUG
+#endif
+
 using namespace std;
 
 int main()
 {
+	 Py_Initialize();
+
 	// nit resurce manager
 	cResurceManager* ResurceManager = new cResurceManager();
 
@@ -217,6 +224,8 @@ int main()
 		
 		window.display();
     }
+
+	Py_Finalize();
 
     return 0;
 }
