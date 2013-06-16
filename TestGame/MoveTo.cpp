@@ -9,11 +9,6 @@
 void MoveTo::Enter(Miner* pEntity)
 {
 	pEntity->clock.restart();
-	printf("%d:Enter in Move to state\n",pEntity->GetID());
-	/*
-	printf("%d:\tLocal Position(%f,%f)\n",pEntity->GetID(),pEntity->GetLocation().x,pEntity->GetLocation().y);
-	printf("%d:\tDestiantion(%f,%f)\n",pEntity->GetID(),pEntity->Destiantion.x,pEntity->Destiantion.y);
-	*/
 
 	pEntity->listDestiantion.clear();
 
@@ -32,7 +27,7 @@ void MoveTo::Enter(Miner* pEntity)
 	pf.Optimize();
 
 	// reverse order
-	for(int index = 0 ; index < pf.Path.size() ; index++)
+	for(unsigned int index = 0 ; index < pf.Path.size() ; index++)
 	{
 		float x = pf.Path[index ].x;
 		float y = pf.Path[index ].y;
@@ -111,19 +106,13 @@ void MoveTo::Exit(Miner* pEntity)
 	printf("%d:Exit Mote to state\n",pEntity->GetID());
 }
 
+
+
+//
+//	SwithSprite with angle
+//
 void MoveTo::SwitchSprite(Miner* pEntity,float angle)
 {
-	// value +1 = 0000'0001		0x01
-	// value +0 = 0000'0000		0x00
-	// value -1 = 1111'1111		0xFF
-	
-	// dx -1:0:+1
-	// dy -1:0:+1
-
-//	char value1 = dx & 0x0F;
-//	char value2 = dy & 0xF0;
-//	value2 = value2 << 4;
-//	value2 += value1;
 
 	int iAngle = angle/45;
 
