@@ -40,7 +40,7 @@ int main()
 			sf::Vector2f screenPos = VectorUtils::ConvertToScreenSpace(x,y,800);
 			if((screenPos.x >-64) &&(screenPos.x < 800)&&
 				(screenPos.y > -32)&&(screenPos.y < 600))
-			map->AddCell(x,y,0);
+			map->AddCell(x,y,cellType::walkable);
 		}
 	
 	//

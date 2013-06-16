@@ -3,7 +3,7 @@
 #include <limits>
 
 myMap::myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide)// todo: cange coordiante sistem to fit with game coordinte
-	:width(width),height(height),boxSide(boxSide),ScreenWidth(ScreenWidth),scale(1)
+	:boxSide(boxSide),ScreenWidth(ScreenWidth),scale(1)
 {
 	map = new std::vector<MapItem> ();
 	// reset limit
@@ -16,25 +16,23 @@ myMap::myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide
 	
 	
 	// load texture from file
-	sf::Texture* pTexture  = new sf::Texture();
-	pTexture->loadFromFile("../data/base/base_0001.png");
-	TextureList->push_back(pTexture);
+	GreyTexture  = new sf::Texture();
+	GreyTexture->loadFromFile("../data/base/base_0001.png");
+	TextureList->push_back(GreyTexture);
 	// base 002
-	pTexture  = new sf::Texture();
-	pTexture->loadFromFile("../data/base/base_0003.png");
-	TextureList->push_back(pTexture);
+	GreenTexture  = new sf::Texture();
+	GreenTexture->loadFromFile("../data/base/base_0002.png");
+	TextureList->push_back(GreenTexture);
 	// base 003
-	pTexture  = new sf::Texture();
-	pTexture->loadFromFile("../data/base/base_0002.png");
-	TextureList->push_back(pTexture);
+	RedTexture  = new sf::Texture();
+	RedTexture->loadFromFile("../data/base/base_0003.png");
+	TextureList->push_back(RedTexture);
 
 	for(int y = 0; y < height; y++)
 		for(int x = 0; x < width; x++)
 		{
-			AddCell(x,y,0);
+			AddCell(x,y,cellType::walkable);
 		}
-
-		AddCell(-1,-1,0);
 }
 
 
@@ -47,8 +45,7 @@ myMap::~myMap(void)
 // 
 void myMap::AddCell(int x, int y,unsigned char value)
 {
-	myMap::MapItem* pItem = GetCell(x,y);
-	if( pItem != NULL)
+	if( GetCell(x,y) != NULL)
 	{
 		return;
 	}
@@ -62,11 +59,14 @@ void myMap::AddCell(int x, int y,unsigned char value)
 	
 	switch(value)
 	{
-	case 0:
-		item.sprite->setTexture(*TextureList->at(0),true);
+	case cellType::unwalkable:
+		item.sprite->setTexture(*RedTexture,true);
 		break;
-	case 1:
-		item.sprite->setTexture(*TextureList->at(1),true);
+	case cellType::walkable:
+		item.sprite->setTexture(*GreyTexture,true);
+		break;
+	case cellType::wheat:
+		item.sprite->setTexture(*GreenTexture,true);
 		break;
 	}
 	
@@ -101,14 +101,19 @@ void myMap::SetValue(int x, int y, unsigned char val)
 	if(pItem != NULL)
 	{
 		pItem->value = val;
-		if (val > 0)
+		switch(val)
 		{
-			pItem->sprite->setTexture(*TextureList->at(1),true);
+		case cellType::unwalkable:
+			pItem->sprite->setTexture(*RedTexture,true);
+			break;
+		case cellType::walkable:
+			pItem->sprite->setTexture(*GreyTexture,true);
+			break;
+		case cellType::wheat:
+			pItem->sprite->setTexture(*GreenTexture,true);
+			break;
 		}
-		else
-		{
-			pItem->sprite->setTexture(*TextureList->at(0),true);
-		}
+		
 	}
 }
 
@@ -131,7 +136,7 @@ bool myMap::CellIsEmpty(int x,int y) const
 	
 	if(pItem != NULL)
 	{
-		return pItem->value == 0;
+		return pItem->value != cellType::unwalkable;
 	}
 
 	return false;
@@ -139,7 +144,6 @@ bool myMap::CellIsEmpty(int x,int y) const
 
 void myMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-
 	for(unsigned int index=0; index < map->size(); index++)
 	{
 		if(map->at(index).sprite)

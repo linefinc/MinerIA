@@ -3,6 +3,13 @@
 #include <SFML\Graphics.hpp>
 #include "FindableMap.h"
 
+enum cellType
+{
+	unwalkable =1,
+	walkable = 2,
+	wheat = 4,
+};
+
 
 class myMap: public FindableMap, public sf::Drawable
 {
@@ -14,20 +21,21 @@ private:
 		sf::Sprite* sprite;
 		int x;
 		int y;
+		unsigned char wheatLevel;
 	public:
 		// constructor
 		MapItem()
-		:value(0), sprite(NULL)
+		:value(0), sprite(NULL), wheatLevel(0)
 		{	}
 		// constructor with value
 		MapItem(unsigned char value)
-		:value(value), sprite(NULL)
-		{	}
+		{	
+			MapItem();
+			this->value = value;
+		}
 		// constructor with value
 	};
 
-	int width; 
-	int height;
 	int scale;
 	// ofset for negative value
 	int minX;
