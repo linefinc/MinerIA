@@ -31,15 +31,10 @@ myMap::myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide
 	for(int y = 0; y < height; y++)
 		for(int x = 0; x < width; x++)
 		{
-			
-			sf::Sprite* rs= new sf::Sprite();				
-			rs->setTexture(*TextureList->at(0),true);
-			rs->setPosition(VectorUtils::ConvertToScreenSpace(x,y,ScreenWidth));
-			
-			AddCell(x,y,0,rs);
+			AddCell(x,y,0);
 		}
 
-
+		AddCell(-1,-1,0);
 }
 
 
@@ -47,25 +42,42 @@ myMap::~myMap(void)
 {
 }
 
-void myMap::AddCell(int x, int y,unsigned char value, sf::Sprite* sprite)
+//
+//	Add cell to Maps
+// 
+void myMap::AddCell(int x, int y,unsigned char value)
 {
-	
+	myMap::MapItem* pItem = GetCell(x,y);
+	if( pItem != NULL)
+	{
+		return;
+	}
+
 	MapItem item;
 	item.x =x;
 	item.y = y;
 	item.value = value;
-	item.sprite = sprite;
+	item.sprite = new sf::Sprite();
+	item.sprite->setPosition(VectorUtils::ConvertToScreenSpace(x,y,ScreenWidth));
+	
+	switch(value)
+	{
+	case 0:
+		item.sprite->setTexture(*TextureList->at(0),true);
+		break;
+	case 1:
+		item.sprite->setTexture(*TextureList->at(1),true);
+		break;
+	}
+	
 	map->push_back(item);
 
 	// update limit
-	if(x < minX)
-		minX = x;
-	if(x > maxX)
-		maxX = x;
-	if(y < minY)
-		minY = y;
-	if(y > maxY)
-		maxY = y;
+	if(x < minX)	minX = x;
+	if(x > maxX)	maxX = x;
+	if(y < minY)	minY = y;
+	if(y > maxY)	maxY = y;
+
 }
 
 myMap::MapItem* myMap::GetCell(int x, int y) const
@@ -127,13 +139,12 @@ bool myMap::CellIsEmpty(int x,int y) const
 
 void myMap::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	unsigned int totalcount = width * height;
 
-	for(unsigned int i=0; i < totalcount; i++)
+	for(unsigned int index=0; index < map->size(); index++)
 	{
-		if(map->at(i).sprite)
+		if(map->at(index).sprite)
 		{
-			target.draw(*map->at(i).sprite, states);
+			target.draw(*map->at(index).sprite, states);
 		}
 	}
 

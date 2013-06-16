@@ -61,7 +61,7 @@ public:
 
 	bool CellIsEmpty(int x,int y) const;
 	
-	void AddCell(int x, int y,unsigned char value, sf::Sprite* sprite);
+	void AddCell(int x, int y,unsigned char value);
 
 	void setGridScale(int scale) 
 	{

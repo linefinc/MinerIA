@@ -26,6 +26,16 @@ int main()
 
 	//myMap* map = new myMap(window.getSize().x/ 30,window.getSize().y/ 30, 30);
 	myMap* map = new myMap(12,12,800,32);
+
+	for(int y = -20; y < 30 ; y++)
+		for(int x = -20; x < 30; x++)
+		{
+			sf::Vector2f screenPos = VectorUtils::ConvertToScreenSpace(x,y,800);
+			if((screenPos.x >-64) &&(screenPos.x < 800)&&
+				(screenPos.y > -32)&&(screenPos.y < 600))
+			map->AddCell(x,y,0);
+		}
+	
 	//
 	// init maps
 	//
@@ -61,7 +71,7 @@ int main()
 	map->SetValue(8,9,1);
 	map->SetValue(8,8,1);
 
-	map->Dump("map.csv");
+
 	//
 	//	Setup Home
 	//
