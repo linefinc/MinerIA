@@ -54,10 +54,13 @@ public:
 
 	std::vector<sf::Texture*>* TextureList;
 
-	sf::Texture* GreenTexture;
+	
 	sf::Texture* GreyTexture;
 	sf::Texture* RedTexture;
-
+	sf::Texture* GreenTexture0;
+	sf::Texture* GreenTexture1;
+	sf::Texture* GreenTexture2;
+	sf::Texture* GreenTexture3;
 	unsigned int boxSide;
 
 	
@@ -65,11 +68,13 @@ public:
 
 	std::vector<MapItem>* map;
 
-	void SetValue(int x, int y, unsigned char val);
+	void SetValue(int x, int y, unsigned char val,unsigned char wheatLevel = 0);
 
 	bool CellIsEmpty(int x,int y) const;
 	
 	void AddCell(int x, int y,unsigned char value);
+
+	void Update(void);
 
 	void setGridScale(int scale) 
 	{
@@ -80,5 +85,7 @@ public:
 	{
 		return scale;
 	}
+
+	sf::Clock clock; // timer
 };
 

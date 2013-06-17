@@ -18,9 +18,14 @@
 
 using namespace std;
 
+
+
 int main()
 {
-	 Py_Initialize();
+	 //Py_Initialize();
+	
+	// inizializze random number
+	srand(time(NULL));
 
 	// nit resurce manager
 	cResurceManager* ResurceManager = new cResurceManager();
@@ -47,36 +52,38 @@ int main()
 	// init maps
 	//
 	map->SetValue(1,7,1);
-	map->SetValue(2,2,1);
-	map->SetValue(2,3,1);
-	map->SetValue(2,4,1);
-	map->SetValue(2,5,1);
-	map->SetValue(2,6,1);
-	map->SetValue(2,7,1);
-	map->SetValue(3,4,1);
-	map->SetValue(4,4,1);
-	map->SetValue(5,4,1);
-	map->SetValue(6,4,1);
-	map->SetValue(7,4,1);
-	map->SetValue(7,5,1);
-	map->SetValue(7,6,1);
-	map->SetValue(7,7,1);
-	map->SetValue(7,8,1);
-	map->SetValue(7,9,1);
+	map->SetValue(2,2,cellType::unwalkable);
+	map->SetValue(2,3,cellType::unwalkable);
+	map->SetValue(2,4,cellType::unwalkable);
+	map->SetValue(2,5,cellType::unwalkable);
+	map->SetValue(2,6,cellType::unwalkable);
+	map->SetValue(2,7,cellType::unwalkable);
+	map->SetValue(3,4,cellType::unwalkable);
+	map->SetValue(4,4,cellType::unwalkable);
+	map->SetValue(5,4,cellType::unwalkable);
+	map->SetValue(6,4,cellType::unwalkable);
+	map->SetValue(7,4,cellType::unwalkable);
+	map->SetValue(7,5,cellType::unwalkable);
+	map->SetValue(7,6,cellType::unwalkable);
+	map->SetValue(7,7,cellType::unwalkable);
+	map->SetValue(7,8,cellType::unwalkable);
+	map->SetValue(7,9,cellType::unwalkable);
 
-	map->SetValue(5,0,1);
-	map->SetValue(5,1,1);
-	map->SetValue(5,2,1);
+	map->SetValue(5,0,cellType::unwalkable);
+	map->SetValue(5,1,cellType::unwalkable);
+	map->SetValue(5,2,cellType::unwalkable);
 	
 	
-	map->SetValue(8,10,1);
-	map->SetValue(9,10,1);
-	map->SetValue(10,8,1);
-	map->SetValue(10,9,1);
-	map->SetValue(9,9,1);
-	map->SetValue(9,8,1);
-	map->SetValue(8,9,1);
-	map->SetValue(8,8,1);
+	map->SetValue(8,10,cellType::unwalkable);
+	map->SetValue(9,10,cellType::unwalkable);
+	map->SetValue(10,8,cellType::unwalkable);
+	map->SetValue(10,9,cellType::unwalkable);
+	map->SetValue(9,9,cellType::unwalkable);
+	map->SetValue(9,8,cellType::unwalkable);
+	map->SetValue(8,9,cellType::unwalkable);
+	map->SetValue(8,8,cellType::unwalkable);
+
+	map->SetValue(14,5,cellType::wheat);
 
 
 	//
@@ -86,7 +93,7 @@ int main()
 	sgoHome->SetGamePosition(sf::Vector2f(1.0f,5.0f));
 
 	sf::Texture* pTextureHome  = new sf::Texture();
-	pTextureHome->loadFromFile("../data/base/base_0005.png");
+	pTextureHome->loadFromFile("../data/base/base_H.png");
 	sgoHome->sprite.setTexture(*pTextureHome);
 
 	//
@@ -96,7 +103,7 @@ int main()
 	sgoMine->SetGamePosition(sf::Vector2f(8.0f,1.0f));
 	
 	sf::Texture* pTextureMine  = new sf::Texture();
-	pTextureMine->loadFromFile("../data/base/base_0006.png");
+	pTextureMine->loadFromFile("../data/base/base_M.png");
 	sgoMine->sprite.setTexture(*pTextureMine);
 	//
 	//	Setup Bank
@@ -105,7 +112,7 @@ int main()
 	sgoBank->SetGamePosition(sf::Vector2f(10.0f,10.0f));
 
 	sf::Texture* pTextureBank  = new sf::Texture();
-	pTextureBank->loadFromFile("../data/base/base_0004.png");
+	pTextureBank->loadFromFile("../data/base/base_B.png");
 	sgoBank->sprite.setTexture(*pTextureBank);
 
 	//
@@ -209,6 +216,7 @@ int main()
 		counter++;
 		// update
 		myMiner->Update();
+		map->Update();
 
 		// render
         window.clear();
@@ -225,7 +233,7 @@ int main()
 		window.display();
     }
 
-	Py_Finalize();
+	//Py_Finalize();
 
     return 0;
 }

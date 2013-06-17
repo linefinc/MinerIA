@@ -75,7 +75,6 @@ void MoveTo::Execute(Miner* pEntity) // todo: review all function. Spaghetti flo
 			//
 			pEntity->SetGamePosition(nextDestination);
 			pEntity->listDestiantion.erase(pEntity->listDestiantion.begin());	// remove first element
-			
 		}
 
 		if( pEntity->listDestiantion.size() > 0)
@@ -93,11 +92,6 @@ void MoveTo::Execute(Miner* pEntity) // todo: review all function. Spaghetti flo
 		{				
 			pEntity->RevertPreviusSatate();
 		}
-		
-		
-	
-
-
 	}
 }
 

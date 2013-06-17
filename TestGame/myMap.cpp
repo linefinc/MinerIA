@@ -1,6 +1,7 @@
 #include "myMap.h"
 #include "VectorUtils.h"
 #include <limits>
+#include <cmath>
 
 myMap::myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide)// todo: cange coordiante sistem to fit with game coordinte
 	:boxSide(boxSide),ScreenWidth(ScreenWidth),scale(1)
@@ -19,20 +20,37 @@ myMap::myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide
 	GreyTexture  = new sf::Texture();
 	GreyTexture->loadFromFile("../data/base/base_0001.png");
 	TextureList->push_back(GreyTexture);
-	// base 002
-	GreenTexture  = new sf::Texture();
-	GreenTexture->loadFromFile("../data/base/base_0002.png");
-	TextureList->push_back(GreenTexture);
-	// base 003
+	// base RedTexture
+	
 	RedTexture  = new sf::Texture();
-	RedTexture->loadFromFile("../data/base/base_0003.png");
+	RedTexture->loadFromFile("../data/base/base_0010.png");
 	TextureList->push_back(RedTexture);
+	// base 003
+	GreenTexture0  = new sf::Texture();
+	GreenTexture0->loadFromFile("../data/base/base_0020.png");
+	TextureList->push_back(GreenTexture0);
+	// 
+	GreenTexture1  = new sf::Texture();
+	GreenTexture1->loadFromFile("../data/base/base_0021.png");
+	TextureList->push_back(GreenTexture1);
+	// base 008
+	GreenTexture2  = new sf::Texture();
+	GreenTexture2->loadFromFile("../data/base/base_0022.png");
+	TextureList->push_back(GreenTexture2);
+	// todo: fix
+	// base 008 
+	GreenTexture3  = new sf::Texture();
+	GreenTexture3->loadFromFile("../data/base/base_0022.png");
+	TextureList->push_back(GreenTexture3);
 
 	for(int y = 0; y < height; y++)
 		for(int x = 0; x < width; x++)
 		{
 			AddCell(x,y,cellType::walkable);
 		}
+
+
+	clock.restart();
 }
 
 
@@ -66,8 +84,10 @@ void myMap::AddCell(int x, int y,unsigned char value)
 		item.sprite->setTexture(*GreyTexture,true);
 		break;
 	case cellType::wheat:
-		item.sprite->setTexture(*GreenTexture,true);
+		item.sprite->setTexture(*GreenTexture0,true);
+		item.wheatLevel = 1;
 		break;
+		
 	}
 	
 	map->push_back(item);
@@ -94,7 +114,9 @@ myMap::MapItem* myMap::GetCell(int x, int y) const
 	return NULL;
 }
 
-void myMap::SetValue(int x, int y, unsigned char val)
+
+
+void myMap::SetValue(int x, int y, unsigned char val,unsigned char wheatLevel )
 {
 	myMap::MapItem* pItem = GetCell(x,y);
 	
@@ -110,8 +132,8 @@ void myMap::SetValue(int x, int y, unsigned char val)
 			pItem->sprite->setTexture(*GreyTexture,true);
 			break;
 		case cellType::wheat:
-			pItem->sprite->setTexture(*GreenTexture,true);
-			break;
+			pItem->sprite->setTexture(*GreenTexture0,true);
+			pItem->wheatLevel = wheatLevel;
 		}
 		
 	}
@@ -179,4 +201,75 @@ void myMap::Dump(const char* fileName) const
 	}
 
 	fclose(fp);
+}
+
+void myMap::Update(void)
+{
+	if( clock.getElapsedTime().asSeconds() < 1)
+	{
+		return;
+	}
+	clock.restart();
+
+	for (unsigned int index = 0; index < map->size(); index++)
+	{
+		unsigned int wheatLevel = map->at(index).wheatLevel;
+		if( map->at(index).value == cellType::wheat)
+		{
+			myMap::MapItem* pItem = &map->at(index);
+		
+			// the same of max(15 , wheatLevel+1)
+			pItem->wheatLevel++;	
+			
+			if( pItem->wheatLevel > 15)
+			{
+				pItem->wheatLevel = 15;
+			}
+
+			// 
+			int myrand = rand() % 100;
+			if( myrand < 50 )	// 5 % of probability
+			{
+				int x = pItem->x;
+				int y = pItem->y;
+				myrand = (rand() % 3) -1;	// rand from -1 to 1
+				x += myrand;
+
+				myrand = (rand() % 3) -1;	// rand from -1 to 1
+				y += myrand;
+				
+
+				if(CellIsEmpty(x,y) == true) 
+				{
+					int w = GetCell(x,y)->wheatLevel;
+					SetValue(x,y, cellType::wheat, w);
+				}
+				
+			}
+
+			//
+			//	Update render
+			//
+			if(pItem->wheatLevel < 2)	// 0001b	0 - 1  
+			{
+				pItem->sprite->setTexture(*GreenTexture0,true);
+				break;
+			}
+			if((pItem->wheatLevel > 1) && (pItem->wheatLevel < 4))	// 001xb	2 - 3
+			{
+				pItem->sprite->setTexture(*GreenTexture1,true);
+				break;
+			}
+			if((pItem->wheatLevel > 3) && (pItem->wheatLevel < 8))	// 01xxb	4 - 7
+			{
+				pItem->sprite->setTexture(*GreenTexture2,true);
+				break;
+			}
+			if(pItem->wheatLevel > 7) 	// 1xxxb	8 - 15
+			{
+				pItem->sprite->setTexture(*GreenTexture3,true);
+				break;
+			}
+		}
+	}
 }
