@@ -22,8 +22,8 @@ using namespace std;
 
 int main()
 {
-	 //Py_Initialize();
-	
+	//Py_Initialize();
+
 	// inizializze random number
 	srand(time(NULL));
 
@@ -37,103 +37,111 @@ int main()
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Miner works!");
 
 	//myMap* map = new myMap(window.getSize().x/ 30,window.getSize().y/ 30, 30);
-	myMap* map = new myMap(12,12,800,32);
+	myMap* map = new myMap(12, 12, 800, 32);
 
-	for(int y = -20; y < 30 ; y++)
-		for(int x = -20; x < 30; x++)
+	for (int y = -20; y < 30; y++)
+		for (int x = -20; x < 30; x++)
 		{
-			sf::Vector2f screenPos = VectorUtils::ConvertToScreenSpace(x,y,800);
-			if((screenPos.x >-64) &&(screenPos.x < 800)&&
-				(screenPos.y > -32)&&(screenPos.y < 600))
-			map->AddCell(x,y,cellType::walkable);
+			sf::Vector2f screenPos = VectorUtils::ConvertToScreenSpace(x, y, 800);
+			if ((screenPos.x >-64) && (screenPos.x < 800) &&
+				(screenPos.y > -32) && (screenPos.y < 600))
+				map->AddCell(x, y, true, 0);
 		}
-	
+
 	//
 	// init maps
 	//
-	map->SetValue(1,7,1);
-	map->SetValue(2,2,cellType::unwalkable);
-	map->SetValue(2,3,cellType::unwalkable);
-	map->SetValue(2,4,cellType::unwalkable);
-	map->SetValue(2,5,cellType::unwalkable);
-	map->SetValue(2,6,cellType::unwalkable);
-	map->SetValue(2,7,cellType::unwalkable);
-	map->SetValue(3,4,cellType::unwalkable);
-	map->SetValue(4,4,cellType::unwalkable);
-	map->SetValue(5,4,cellType::unwalkable);
-	map->SetValue(6,4,cellType::unwalkable);
-	map->SetValue(7,4,cellType::unwalkable);
-	map->SetValue(7,5,cellType::unwalkable);
-	map->SetValue(7,6,cellType::unwalkable);
-	map->SetValue(7,7,cellType::unwalkable);
-	map->SetValue(7,8,cellType::unwalkable);
-	map->SetValue(7,9,cellType::unwalkable);
+	map->SetValue(1, 7, false, 0);
+	map->SetValue(2, 2, false, 0);
+	map->SetValue(2, 3, false, 0);
+	map->SetValue(2, 4, false, 0);
+	map->SetValue(2, 5, false, 0);
+	map->SetValue(2, 6, false, 0);
+	map->SetValue(2, 7, false, 0);
+	map->SetValue(3, 4, false, 0);
+	map->SetValue(4, 4, false, 0);
+	map->SetValue(5, 4, false, 0);
+	map->SetValue(6, 4, false, 0);
+	map->SetValue(7, 4, false, 0);
+	map->SetValue(7, 5, false, 0);
+	map->SetValue(7, 6, false, 0);
+	map->SetValue(7, 7, false, 0);
+	map->SetValue(7, 8, false, 0);
+	map->SetValue(7, 9, false, 0);
 
-	map->SetValue(5,0,cellType::unwalkable);
-	map->SetValue(5,1,cellType::unwalkable);
-	map->SetValue(5,2,cellType::unwalkable);
-	
-	
-	map->SetValue(8,10,cellType::unwalkable);
-	map->SetValue(9,10,cellType::unwalkable);
-	map->SetValue(10,8,cellType::unwalkable);
-	map->SetValue(10,9,cellType::unwalkable);
-	map->SetValue(9,9,cellType::unwalkable);
-	map->SetValue(9,8,cellType::unwalkable);
-	map->SetValue(8,9,cellType::unwalkable);
-	map->SetValue(8,8,cellType::unwalkable);
+	map->SetValue(5, 0, false, 0);
+	map->SetValue(5, 1, false, 0);
+	map->SetValue(5, 2, false, 0);
 
-	map->SetValue(14,5,cellType::wheat);
+
+	map->SetValue(8, 10, false, 0);
+	map->SetValue(9, 10, false, 0);
+	map->SetValue(10, 8, false, 0);
+	map->SetValue(10, 9, false, 0);
+	map->SetValue(9, 9, false, 0);
+	map->SetValue(9, 8, false, 0);
+	map->SetValue(8, 9, false, 0);
+	map->SetValue(8, 8, false, 0);
+
+	//map->SetValue(12, 6, cellType::wheat);
+	map->SetValue(12, 5, true, 1);
+	map->SetValue(12, 6, true, 1);
+	map->SetValue(13, 5, true, 1);
+	map->SetValue(14, 5, true, 1);
+	map->SetValue(14, 6, true, 1);
+	map->SetValue(14, 7, true, 1);
+	map->SetValue(14, 8, true, 1);
+	map->SetValue(15, 9, true, 1);
 
 
 	//
 	//	Setup Home
 	//
-	StaticGameObject* sgoHome = new StaticGameObject(gom.GetNextID(),"HOME");
-	sgoHome->SetGamePosition(sf::Vector2f(1.0f,5.0f));
+	StaticGameObject* sgoHome = new StaticGameObject(gom.GetNextID(), "HOME");
+	sgoHome->SetGamePosition(sf::Vector2f(1.0f, 5.0f));
 
-	sf::Texture* pTextureHome  = new sf::Texture();
+	sf::Texture* pTextureHome = new sf::Texture();
 	pTextureHome->loadFromFile("../data/base/base_H.png");
 	sgoHome->sprite.setTexture(*pTextureHome);
 
 	//
 	//	Setup Mine
 	//
-	StaticGameObject* sgoMine = new StaticGameObject(gom.GetNextID(),"MINE");
-	sgoMine->SetGamePosition(sf::Vector2f(8.0f,1.0f));
-	
-	sf::Texture* pTextureMine  = new sf::Texture();
+	StaticGameObject* sgoMine = new StaticGameObject(gom.GetNextID(), "MINE");
+	sgoMine->SetGamePosition(sf::Vector2f(8.0f, 1.0f));
+
+	sf::Texture* pTextureMine = new sf::Texture();
 	pTextureMine->loadFromFile("../data/base/base_M.png");
 	sgoMine->sprite.setTexture(*pTextureMine);
 	//
 	//	Setup Bank
 	//
-	StaticGameObject* sgoBank = new StaticGameObject(gom.GetNextID(),"BANK");
-	sgoBank->SetGamePosition(sf::Vector2f(10.0f,10.0f));
+	StaticGameObject* sgoBank = new StaticGameObject(gom.GetNextID(), "BANK");
+	sgoBank->SetGamePosition(sf::Vector2f(10.0f, 10.0f));
 
-	sf::Texture* pTextureBank  = new sf::Texture();
+	sf::Texture* pTextureBank = new sf::Texture();
 	pTextureBank->loadFromFile("../data/base/base_B.png");
 	sgoBank->sprite.setTexture(*pTextureBank);
 
 	//
 	//	Setup RAFINERY
 	//
-	StaticGameObject* sgoRafinery = new StaticGameObject(gom.GetNextID(),"RAFINERY");
-	
+	StaticGameObject* sgoRafinery = new StaticGameObject(gom.GetNextID(), "RAFINERY");
 
-	sf::Texture* pTextureRafinery  = new sf::Texture();
+
+	sf::Texture* pTextureRafinery = new sf::Texture();
 	bool rc = pTextureRafinery->loadFromFile("../data/refinery/0001.png");
-	if(rc == false)
+	if (rc == false)
 	{
 		printf("error\n");
 	}
 	sgoRafinery->sprite.setTexture(*pTextureRafinery);
 
 	int dx = 1;
-	int dy = pTextureRafinery->getSize().y / 32  - 1;
+	int dy = pTextureRafinery->getSize().y / 32 - 1;
 
-	sgoRafinery->SetGamePosition(sf::Vector2f(10.0f - dx - dy ,10.0f - dy +dx));
-	
+	sgoRafinery->SetGamePosition(sf::Vector2f(10.0f - dx - dy, 10.0f - dy + dx));
+
 	//map->SetValue(8,10,1);
 	//map->SetValue(9,10,1);
 	//map->SetValue(10,8,1);
@@ -147,15 +155,15 @@ int main()
 	//
 	//	Miner setup
 	//
-	shared_ptr<Miner> myMiner (new Miner(gom.GetNextID()));
-	
+	shared_ptr<Miner> myMiner(new Miner(gom.GetNextID()));
+
 	myMiner->SetGamePosition(sgoHome->GetGamePosition());	// setup miner at home
 	myMiner->sgoBank = sgoBank;
-	myMiner->sgoHome  = sgoHome;
+	myMiner->sgoHome = sgoHome;
 	myMiner->sgoMine = sgoMine;
 	myMiner->map = map;
 	myMiner->velocity = 4.0f;
-	
+
 	//
 	//	text
 	//
@@ -172,9 +180,9 @@ int main()
 	textFps.setStyle(sf::Text::Bold);
 	textFps.setString("fps");
 
-	sf::Text textRenderTime (textFps);
+	sf::Text textRenderTime(textFps);
 	textRenderTime.setString("render time");
-	textRenderTime.setPosition(0.0f,24.0f);
+	textRenderTime.setPosition(0.0f, 24.0f);
 	//
 	//	Main loop
 	//
@@ -185,28 +193,28 @@ int main()
 
 	unsigned int counter = 0;
 
-    while (window.isOpen())
-    {
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-			{
-                window.close();
-			}
-        }
-
-		int renderTime = clock.getElapsedTime().asMilliseconds() ;
-		if(renderTime >= 100)
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
 		{
-			
+			if (event.type == sf::Event::Closed)
+			{
+				window.close();
+			}
+		}
 
-			char str [50];
-			sprintf_s(str,sizeof(str),"Render Time %d ms",renderTime/counter);
+		int renderTime = clock.getElapsedTime().asMilliseconds();
+		if (renderTime >= 100)
+		{
+
+
+			char str[50];
+			sprintf_s(str, sizeof(str), "Render Time %d ms", renderTime / counter);
 			textRenderTime.setString(str);
 
-			unsigned int fps = 1000* counter / renderTime ;
-			sprintf_s(str,sizeof(str),"fps %d",fps);
+			unsigned int fps = 1000 * counter / renderTime;
+			sprintf_s(str, sizeof(str), "fps %d", fps);
 			textFps.setString(str);
 
 
@@ -219,9 +227,9 @@ int main()
 		map->Update();
 
 		// render
-        window.clear();
+		window.clear();
 		window.draw(*map);
-		
+
 		window.draw(*sgoBank);
 		window.draw(*sgoHome);
 		window.draw(*sgoMine);
@@ -229,13 +237,13 @@ int main()
 		window.draw(*myMiner);
 		window.draw(textFps);
 		window.draw(textRenderTime);
-		
+
 		window.display();
-    }
+	}
 
 	//Py_Finalize();
 
-    return 0;
+	return 0;
 }
 
 

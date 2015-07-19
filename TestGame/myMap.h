@@ -5,36 +5,73 @@
 
 enum cellType
 {
-	unwalkable =1,
-	walkable = 2,
-	wheat = 4,
+	empty = 0x1,
+	unwalkable = 0x02,
+	wheat = 0x04,
 };
 
 
-class myMap: public FindableMap, public sf::Drawable
+
+
+class myMap : public FindableMap, public sf::Drawable
 {
-private:
 	class MapItem
 	{
+	private:
+		bool walkable;
+		unsigned char wheatLevel;
 	public:
-		unsigned char value;
 		sf::Sprite* sprite;
 		int x;
 		int y;
-		unsigned char wheatLevel;
-	public:
+
 		// constructor
 		MapItem()
-		:value(0), sprite(NULL), wheatLevel(0)
-		{	}
-		// constructor with value
-		MapItem(unsigned char value)
-		{	
-			MapItem();
-			this->value = value;
+		{
+			this->sprite = NULL;
+			this->wheatLevel = 0;
+			this->walkable = true;
 		}
+
 		// constructor with value
+		MapItem(int x, int y, bool walkable)
+		{
+			MapItem();
+			this->x = x;
+			this->y = y;
+			this->walkable = walkable;
+		}
+
+
+	public:
+		inline void setWalkable(bool value)
+		{
+			this->walkable = value;
+		}
+
+		inline bool getWalkable(void)const
+		{
+			return this->walkable;
+		}
+
+		inline unsigned char getWheatLevel(void) const
+		{
+			if (this->walkable == true)
+			{
+				return this->wheatLevel;
+			}
+			return 0;
+		}
+
+		inline void setWheatLevel(unsigned char &value)
+		{
+			this->wheatLevel = value;
+		}
 	};
+
+
+
+
 
 	int scale;
 	// ofset for negative value
@@ -48,13 +85,15 @@ private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
 	MapItem* GetCell(int x, int y) const;
+
+	unsigned int getWheatLevel(int x, int y) const;
 public:
-	myMap(int width, int height,unsigned int ScreenWidth,unsigned int boxSide);
+	myMap(int width, int height, unsigned int ScreenWidth, unsigned int boxSide);
 	~myMap(void);
 
 	std::vector<sf::Texture*>* TextureList;
 
-	
+
 	sf::Texture* GreyTexture;
 	sf::Texture* RedTexture;
 	sf::Texture* GreenTexture0;
@@ -63,20 +102,20 @@ public:
 	sf::Texture* GreenTexture3;
 	unsigned int boxSide;
 
-	
+
 	void Dump(const char* fileName) const;
 
 	std::vector<MapItem>* map;
 
-	void SetValue(int x, int y, unsigned char val,unsigned char wheatLevel = 0);
+	void SetValue(int x, int y, bool walkable, unsigned char wheatLevel);
 
-	bool CellIsEmpty(int x,int y) const;
-	
-	void AddCell(int x, int y,unsigned char value);
+	bool CellIsEmpty(int x, int y) const;
+
+	void AddCell(int x, int y, bool walkable, unsigned char wheatLevel);
 
 	void Update(void);
 
-	void setGridScale(int scale) 
+	void setGridScale(int scale)
 	{
 		this->scale = scale;
 	}
@@ -85,6 +124,9 @@ public:
 	{
 		return scale;
 	}
+
+	int NearestWheat(sf::Vector2f localPosition, sf::Vector2f* out) const;
+
 
 	sf::Clock clock; // timer
 };

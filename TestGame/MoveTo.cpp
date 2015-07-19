@@ -12,27 +12,27 @@ void MoveTo::Enter(Miner* pEntity)
 
 	pEntity->listDestiantion.clear();
 
-	Point2d start(pEntity->GetGamePosition().x,pEntity->GetGamePosition().y);// todo: cange coordiante sistem to fit with game coordinte
-	Point2d end(pEntity->FinalDestiantion.x ,pEntity->FinalDestiantion.y);
-	PathFinder pf(pEntity->map,start,end);
+	Point2d start(pEntity->GetGamePosition().x, pEntity->GetGamePosition().y);// todo: cange coordiante sistem to fit with game coordinte
+	Point2d end(pEntity->FinalDestiantion.x, pEntity->FinalDestiantion.y);
+	PathFinder pf(pEntity->map, start, end);
 	bool rc = pf.calc();
-	if( rc == false)
+	if (rc == false)
 	{
 		printf("error");
 	}
 
-	
+
 	pf.Reverse();
-	vector<Point2d> temp (pf.Path);
+	vector<Point2d> temp(pf.Path);
 	pf.Optimize();
 
 	// reverse order
-	for(unsigned int index = 0 ; index < pf.Path.size() ; index++)
+	for (unsigned int index = 0; index < pf.Path.size(); index++)
 	{
-		float x = pf.Path[index ].x;
-		float y = pf.Path[index ].y;
+		float x = static_cast<float>(pf.Path[index].x);
+		float y = static_cast<float>(pf.Path[index].y);
 
-		pEntity->listDestiantion.push_back(sf::Vector2f(x,y));
+		pEntity->listDestiantion.push_back(sf::Vector2f(x, y));
 	}
 
 }
@@ -40,11 +40,11 @@ void MoveTo::Enter(Miner* pEntity)
 void MoveTo::Execute(Miner* pEntity) // todo: review all function. Spaghetti flow code
 {
 	sf::Time esliped = pEntity->clock.getElapsedTime();
-	
 
-	if(esliped.asMilliseconds() > 100)	// check to avoid too small moviment
+
+	if (esliped.asMilliseconds() > 100)	// check to avoid too small moviment
 	{
-		
+
 		pEntity->clock.restart();		// reset counter
 		//
 		//	calc distance from destination and local position
@@ -57,7 +57,7 @@ void MoveTo::Execute(Miner* pEntity) // todo: review all function. Spaghetti flo
 		float distaneTravaled = esliped.asMilliseconds()* pEntity->velocity * 1e-3f;
 
 
-		if((distaneTravaled*distaneTravaled)< VectorUtils::Distance2(nextDestination,pEntity->GetGamePosition()))
+		if ((distaneTravaled*distaneTravaled) < VectorUtils::Distance2(nextDestination, pEntity->GetGamePosition()))
 		{
 			//
 			// here normal move
@@ -66,7 +66,7 @@ void MoveTo::Execute(Miner* pEntity) // todo: review all function. Spaghetti flo
 			newDirection *= distaneTravaled;
 			newDirection += pEntity->GetGamePosition();
 			pEntity->SetGamePosition(newDirection);
-			
+
 		}
 		else
 		{
@@ -77,19 +77,19 @@ void MoveTo::Execute(Miner* pEntity) // todo: review all function. Spaghetti flo
 			pEntity->listDestiantion.erase(pEntity->listDestiantion.begin());	// remove first element
 		}
 
-		if( pEntity->listDestiantion.size() > 0)
+		if (pEntity->listDestiantion.size() > 0)
 		{
 			sf::Vector2f nextDestination = pEntity->listDestiantion[0];
 			// calc new angle
 			sf::Vector2f newDirection = VectorUtils::Normalize(nextDestination - pEntity->GetGamePosition());
-			float angle = atan2(newDirection.y,newDirection.x) / PI *180.0;
+			float angle = atan2(newDirection.y, newDirection.x) / PI *180.0;
 			// TODO:recalc sprite number 
 			// here recalc sprite number 
-			SwitchSprite(pEntity,angle);
+			SwitchSprite(pEntity, angle);
 		}
 
-		if( pEntity->listDestiantion.size() == 0)
-		{				
+		if (pEntity->listDestiantion.size() == 0)
+		{
 			pEntity->RevertPreviusSatate();
 		}
 	}
@@ -97,7 +97,7 @@ void MoveTo::Execute(Miner* pEntity) // todo: review all function. Spaghetti flo
 
 void MoveTo::Exit(Miner* pEntity)
 {
-	printf("%d:Exit Mote to state\n",pEntity->GetID());
+	printf("%d:Exit Mote to state\n", pEntity->GetID());
 }
 
 
@@ -105,15 +105,15 @@ void MoveTo::Exit(Miner* pEntity)
 //
 //	SwithSprite with angle
 //
-void MoveTo::SwitchSprite(Miner* pEntity,float angle)
+void MoveTo::SwitchSprite(Miner* pEntity, float angle)
 {
 
-	int iAngle = angle/45;
+	int iAngle = static_cast<int>(angle / 45);
 
 
-	switch(iAngle)
+	switch (iAngle)
 	{
-	// fixed
+		// fixed
 	case 4:
 	case -4:	//	180°
 		pEntity->setTexturebyID(24);
