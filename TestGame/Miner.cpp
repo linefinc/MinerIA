@@ -2,9 +2,10 @@
 #include <cstdio>
 #include <cassert>
 #include "GoHomeAndSleep.h"
+#include "GameObjectManager.h"
 
 Miner::Miner(int ID)
-:BaseGameEntity()
+	:BaseGameEntity()
 {
 	this->ID = ID;
 
@@ -17,12 +18,12 @@ Miner::Miner(int ID)
 	this->sgoBank = NULL;
 	this->sgoHome = NULL;
 	this->sgoMine = NULL;
-	this->velocity= 1.0f;
+	this->velocity = 1.0f;
 
 	//this->SetLocation(eLocations::Home); //todo: fix here
 	this->pCurrentState = &GoHomeAndSleepIstance;
 	this->pGlobalState = NULL;
-	
+
 	// render part
 	AddTexture("../data/mower/0000.png");
 	AddTexture("../data/mower/0001.png");
@@ -60,6 +61,10 @@ Miner::Miner(int ID)
 
 	AddTexture("../data/mower/0031.png");
 	AddTexture("../data/mower/0032.png");
+
+
+	shared_ptr<GameObject> p = GameObjectManager::getInstance().findGameObjectByName("Home");
+
 	//
 	// setup 
 	//
@@ -79,7 +84,7 @@ Miner::~Miner(void)
 void Miner::Update(void)
 {
 	Thist++;
-	if(pCurrentState != NULL)
+	if (pCurrentState != NULL)
 	{
 		pCurrentState->Execute(this);
 	}
@@ -109,9 +114,9 @@ void Miner::AddTexture(const char* filename)
 	//	load image 
 	//
 	sf::Texture* texture = new sf::Texture();
-	if(texture->loadFromFile(filename) == false)
+	if (texture->loadFromFile(filename) == false)
 	{
-		return ;	
+		return;
 		// Error...
 	}
 
@@ -134,7 +139,7 @@ void Miner::draw(sf::RenderTarget& target, sf::RenderStates states) const
 void Miner::SetGamePosition(sf::Vector2f Position)
 {
 	GamePosition = Position;
-	sf::Vector2f screenPos = VectorUtils::ConvertToScreenSpace(Position.x,Position.y,800);
+	sf::Vector2f screenPos = VectorUtils::ConvertToScreenSpace(Position.x, Position.y, 800);
 	screenPos.y -= 32;
 	sprite.setPosition(screenPos);
 }

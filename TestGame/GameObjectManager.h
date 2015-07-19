@@ -11,18 +11,19 @@ class GameObjectManager
 {
 private:
 	int NextID;
-
+	std::vector<shared_ptr<GameObject>>* listGameObjects;
 
 	private:
         GameObjectManager() 
 		{
 			NextID =0;
+			listGameObjects = new std::vector<shared_ptr<GameObject>>();
 		};                   // Constructor? (the {} brackets) are needed here.
         // Dont forget to declare these two. You want to make sure they
         // are unaccessable otherwise you may accidently get copies of
         // your singleton appearing.
         GameObjectManager(GameObjectManager const&);              // Don't Implement
-        void operator=(GameObjectManager const&); // Don't implement
+        void operator=(GameObjectManager const&);					// Don't implement
 
 	public:
         static GameObjectManager& getInstance()

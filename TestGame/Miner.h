@@ -1,6 +1,7 @@
 #pragma once
 // standard library
 #include <vector>
+#include <memory>
 // 
 #include <SFML\Graphics.hpp>
 
@@ -31,8 +32,6 @@ private:
 	// draw implementation used form sfml
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 public:
-
-
 	int Thist;
 	int GoldCarried;
 	int CC;
@@ -69,9 +68,9 @@ public:
 
 	void SetGamePosition(sf::Vector2f Position);
 
-	const StaticGameObject* sgoHome;
-	const StaticGameObject* sgoBank;
-	const StaticGameObject* sgoMine;
+	shared_ptr<GameObject> sgoHome;
+	shared_ptr<GameObject> sgoBank;
+	shared_ptr<GameObject> sgoMine;
 	myMap* map;
 
 };

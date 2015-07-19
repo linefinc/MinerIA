@@ -45,7 +45,9 @@ int main()
 			sf::Vector2f screenPos = VectorUtils::ConvertToScreenSpace(x, y, 800);
 			if ((screenPos.x >-64) && (screenPos.x < 800) &&
 				(screenPos.y > -32) && (screenPos.y < 600))
+			{
 				map->AddCell(x, y, true, 0);
+			}
 		}
 
 	//
@@ -97,7 +99,8 @@ int main()
 	//
 	//	Setup Home
 	//
-	StaticGameObject* sgoHome = new StaticGameObject(gom.GetNextID(), "HOME");
+	shared_ptr<StaticGameObject> sgoHome = make_shared< StaticGameObject>(gom.GetNextID(), "HOME");
+	GameObjectManager::getInstance().AddGameObject(sgoHome);
 	sgoHome->SetGamePosition(sf::Vector2f(1.0f, 5.0f));
 
 	sf::Texture* pTextureHome = new sf::Texture();
@@ -107,7 +110,8 @@ int main()
 	//
 	//	Setup Mine
 	//
-	StaticGameObject* sgoMine = new StaticGameObject(gom.GetNextID(), "MINE");
+	shared_ptr< StaticGameObject> sgoMine = make_shared< StaticGameObject>(gom.GetNextID(), "MINE");
+	GameObjectManager::getInstance().AddGameObject(sgoMine);
 	sgoMine->SetGamePosition(sf::Vector2f(8.0f, 1.0f));
 
 	sf::Texture* pTextureMine = new sf::Texture();
@@ -116,7 +120,8 @@ int main()
 	//
 	//	Setup Bank
 	//
-	StaticGameObject* sgoBank = new StaticGameObject(gom.GetNextID(), "BANK");
+	shared_ptr<StaticGameObject> sgoBank = make_shared< StaticGameObject>(gom.GetNextID(), "BANK");
+	GameObjectManager::getInstance().AddGameObject(sgoBank);
 	sgoBank->SetGamePosition(sf::Vector2f(10.0f, 10.0f));
 
 	sf::Texture* pTextureBank = new sf::Texture();
@@ -126,8 +131,8 @@ int main()
 	//
 	//	Setup RAFINERY
 	//
-	StaticGameObject* sgoRafinery = new StaticGameObject(gom.GetNextID(), "RAFINERY");
-
+	shared_ptr <StaticGameObject> sgoRafinery = make_shared<StaticGameObject>(gom.GetNextID(), "RAFINERY");
+	GameObjectManager::getInstance().AddGameObject(sgoRafinery);
 
 	sf::Texture* pTextureRafinery = new sf::Texture();
 	bool rc = pTextureRafinery->loadFromFile("../data/refinery/0001.png");
@@ -142,27 +147,20 @@ int main()
 
 	sgoRafinery->SetGamePosition(sf::Vector2f(10.0f - dx - dy, 10.0f - dy + dx));
 
-	//map->SetValue(8,10,1);
-	//map->SetValue(9,10,1);
-	//map->SetValue(10,8,1);
-	//map->SetValue(10,9,1);
-	//map->SetValue(9,9,1);
-	//map->SetValue(9,8,1);
-	//map->SetValue(8,9,1);
-	//map->SetValue(8,8,1);
-
-
 	//
 	//	Miner setup
 	//
-	shared_ptr<Miner> myMiner(new Miner(gom.GetNextID()));
-
+	shared_ptr<Miner> myMiner = make_shared<Miner>(gom.GetNextID());
 	myMiner->SetGamePosition(sgoHome->GetGamePosition());	// setup miner at home
+
 	myMiner->sgoBank = sgoBank;
 	myMiner->sgoHome = sgoHome;
 	myMiner->sgoMine = sgoMine;
 	myMiner->map = map;
 	myMiner->velocity = 4.0f;
+
+	GameObjectManager::getInstance().AddGameObject(myMiner);
+
 
 	//
 	//	text
@@ -207,8 +205,6 @@ int main()
 		int renderTime = clock.getElapsedTime().asMilliseconds();
 		if (renderTime >= 100)
 		{
-
-
 			char str[50];
 			sprintf_s(str, sizeof(str), "Render Time %d ms", renderTime / counter);
 			textRenderTime.setString(str);
@@ -221,6 +217,7 @@ int main()
 			clock.restart();
 			counter = 0;
 		}
+
 		counter++;
 		// update
 		myMiner->Update();

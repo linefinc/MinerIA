@@ -18,22 +18,22 @@ int GameObjectManager::GetNextID(void)
 	return NextID++;
 }
 
-//void GameObjectManager::AddGameObject(shared_ptr<GameObject> object)
-//{
-//	listGameObjects->push_back(object);
-//}
+void GameObjectManager::AddGameObject(shared_ptr<GameObject> object)
+{
+	listGameObjects->push_back(object);
+}
 
-//shared_ptr<GameObject> GameObjectManager::findGameObjectByName(const string& Name)
-//{
-//	for(unsigned int index = 0; index < listGameObjects->size(); index++)
-//	{
-//		if(listGameObjects->at(index) == NULL)
-//		{
-//			if(listGameObjects->at(index)->GetName() == Name)
-//			{
-//				return listGameObjects->at(index);
-//			}
-//		}
-//	}
-//
-//}
+shared_ptr<GameObject> GameObjectManager::findGameObjectByName(const string& Name)
+{
+	vector<shared_ptr<GameObject>>::iterator pos;
+
+	for (pos = listGameObjects->begin(); pos != listGameObjects->end(); ++pos)
+	{
+
+		if (pos->get()->GetName() == Name)
+		{
+			return (shared_ptr<GameObject>)pos->get();
+		}
+	}
+
+}
