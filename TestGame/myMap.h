@@ -124,8 +124,8 @@ public:
 	{
 		return scale;
 	}
-
-	int NearestWheat(sf::Vector2f localPosition, sf::Vector2f* out) const;
+	/// return nearest wheat node
+	bool NearestWheat(sf::Vector2f localPosition, sf::Vector2f* out) const;
 
 
 	sf::Clock clock; // timer

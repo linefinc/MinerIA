@@ -484,7 +484,7 @@ void myMap::Update(void)
 }
 
 
-int myMap::NearestWheat(sf::Vector2f localPosition, sf::Vector2f* out) const
+bool myMap::NearestWheat(sf::Vector2f localPosition, sf::Vector2f* out) const
 {
 	MapItem* bestNode = nullptr;
 	float distance2 = INT_MAX;
@@ -512,10 +512,10 @@ int myMap::NearestWheat(sf::Vector2f localPosition, sf::Vector2f* out) const
 	// to do : add error if not exist Wheat
 	if (bestNode == nullptr)
 	{
-		return -1;
+		return false;
 	}
 	out->x = static_cast<float>(bestNode->x);
 	out->y = static_cast<float>(bestNode->y);
 
-	return 0;
+	return true;
 }
