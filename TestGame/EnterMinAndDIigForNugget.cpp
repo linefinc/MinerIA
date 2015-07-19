@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <cmath>
 #include "VisitBankAndDepositGold.h"
 #include "EnterMinAndDIigForNugget.h"
 #include "GoHomeAndSleep.h"
@@ -23,7 +24,7 @@ void EnterMinAndDIigForNugget::Enter(Miner* pEntity)
 	}
 
 	float distance2 = VectorUtils::Distance2(pEntity->GetGamePosition(), destination);
-	if (distance2 > 10.0f)	// todo: remove magic number
+	if (distance2 > 0.9f)	// todo: remove magic number
 	{
 		pEntity->FinalDestiantion = destination;
 		pEntity->ChangeState(&MoveToIstance);
@@ -44,7 +45,34 @@ void EnterMinAndDIigForNugget::Execute(Miner* pEntity)
 		pEntity->clock.restart();
 		pEntity->GoldCarried += 1;
 		pEntity->Fatigue += 1;
-		printf(".");
+
+		sf::Vector2f pos = pEntity->GetGamePosition();
+		unsigned int wheatLevel = pEntity->map->getWheatLevel(pos.x, pos.y);
+
+		if (wheatLevel > 0)
+		{
+			printf(".");
+			pEntity->map->SetValue(pos.x, pos.y, true, wheatLevel - 1);
+		}
+		else
+		{
+			//
+			// cell don't have more wheat
+			//
+			sf::Vector2f destination;
+			bool rc = pEntity->map->NearestWheat(pEntity->GetGamePosition(), &destination);
+			if (rc == false)
+			{
+				printf(" NO nearest wheat node\n");
+				pEntity->ChangeState(&GoHomeAndSleepIstance);
+				return;
+			}
+			else
+			{
+				pEntity->ChangeState(&VisitBankAndDepositGoldIstance);
+				return;
+			}
+		}
 	}
 
 	if (pEntity->GoldCarried >= pEntity->MaxGoldCarried)

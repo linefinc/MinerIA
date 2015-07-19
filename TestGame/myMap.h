@@ -86,7 +86,7 @@ class myMap : public FindableMap, public sf::Drawable
 
 	MapItem* GetCell(int x, int y) const;
 
-	unsigned int getWheatLevel(int x, int y) const;
+	
 public:
 	myMap(int width, int height, unsigned int ScreenWidth, unsigned int boxSide);
 	~myMap(void);
@@ -110,8 +110,10 @@ public:
 	void SetValue(int x, int y, bool walkable, unsigned char wheatLevel);
 
 	bool CellIsEmpty(int x, int y) const;
-
+	unsigned int getWheatLevel(int x, int y) const;
 	void AddCell(int x, int y, bool walkable, unsigned char wheatLevel);
+
+
 
 	void Update(void);
 

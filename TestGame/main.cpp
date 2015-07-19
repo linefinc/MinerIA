@@ -84,14 +84,14 @@ int main()
 	map->SetValue(8, 8, false, 0);
 
 	//map->SetValue(12, 6, cellType::wheat);
-	map->SetValue(12, 5, true, 1);
-	map->SetValue(12, 6, true, 1);
-	map->SetValue(13, 5, true, 1);
-	map->SetValue(14, 5, true, 1);
-	map->SetValue(14, 6, true, 1);
-	map->SetValue(14, 7, true, 1);
-	map->SetValue(14, 8, true, 1);
-	map->SetValue(15, 9, true, 1);
+	map->SetValue(12, 5, true, 15);
+	map->SetValue(12, 6, true, 15);
+	map->SetValue(13, 5, true, 15);
+	map->SetValue(14, 5, true, 15);
+	map->SetValue(14, 6, true, 15);
+	map->SetValue(14, 7, true, 15);
+	map->SetValue(14, 8, true, 15);
+	map->SetValue(15, 9, true, 15);
 
 
 	//

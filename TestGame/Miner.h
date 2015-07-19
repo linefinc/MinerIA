@@ -72,7 +72,7 @@ public:
 	const StaticGameObject* sgoHome;
 	const StaticGameObject* sgoBank;
 	const StaticGameObject* sgoMine;
-	const myMap* map;
+	myMap* map;
 
 };
 

@@ -142,7 +142,27 @@ void myMap::SetValue(int x, int y, bool walkable, unsigned char wheatLevel)
 			}
 			else
 			{
-				pItem->sprite->setTexture(*GreenTexture0, true);
+				// update graphics
+				if (wheatLevel < 4)	// 0001b	0 - 3
+				{
+					pItem->sprite->setTexture(*GreenTexture0, true);
+					return;
+				}
+				if ((wheatLevel > 3) && (wheatLevel < 8))	// 001xb	4-7
+				{
+					pItem->sprite->setTexture(*GreenTexture1, true);
+					return;
+				}
+				if ((wheatLevel > 7) && (wheatLevel < 13))	// 01xxb	8 - 12
+				{
+					pItem->sprite->setTexture(*GreenTexture2, true);
+					return;
+				}
+				if (wheatLevel > 12) 	// 1xxxb	12 - 15
+				{
+					pItem->sprite->setTexture(*GreenTexture3, true);
+					return;
+				}
 			}
 
 		}
@@ -374,30 +394,7 @@ void myMap::Update(void)
 			//}
 
 			//		stop:
-			if (pItem->getWalkable() == true)
-			{
-				// update graphics
-				if (wheatLevel < 2)	// 0001b	0 - 1  
-				{
-					pItem->sprite->setTexture(*GreenTexture0, true);
-					break;
-				}
-				if ((wheatLevel > 1) && (wheatLevel < 4))	// 001xb	2 - 3
-				{
-					pItem->sprite->setTexture(*GreenTexture1, true);
-					break;
-				}
-				if ((wheatLevel > 3) && (wheatLevel < 8))	// 01xxb	4 - 7
-				{
-					pItem->sprite->setTexture(*GreenTexture2, true);
-					break;
-				}
-				if (wheatLevel > 7) 	// 1xxxb	8 - 15
-				{
-					pItem->sprite->setTexture(*GreenTexture3, true);
-					break;
-				}
-			}
+		
 		}
 
 
@@ -491,11 +488,11 @@ bool myMap::NearestWheat(sf::Vector2f localPosition, sf::Vector2f* out) const
 
 	for (unsigned int index = 0; index < map->size(); index++)
 	{
-		printf("here %d %d %d\n", map->at(index).x, map->at(index).y, map->at(index).getWheatLevel());
+		
 
 		if ((map->at(index).getWalkable() == true)&(map->at(index).getWheatLevel() > 0))
 		{
-
+			printf("myMap::NearestWheat %d %d %d\n", map->at(index).x, map->at(index).y, map->at(index).getWheatLevel());
 			float deltaX = map->at(index).x - localPosition.x;
 			float distanceTemp = deltaX * deltaX;
 			float deltaY = map->at(index).y - localPosition.y;
@@ -516,6 +513,7 @@ bool myMap::NearestWheat(sf::Vector2f localPosition, sf::Vector2f* out) const
 	}
 	out->x = static_cast<float>(bestNode->x);
 	out->y = static_cast<float>(bestNode->y);
-
+	printf("myMap::NearestWheat Best: %d %d %d\n", bestNode->x, bestNode->y, bestNode->getWheatLevel());
 	return true;
 }
+
