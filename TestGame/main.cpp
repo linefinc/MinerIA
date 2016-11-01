@@ -11,11 +11,6 @@
 #include "StaticGameObject.h"
 #include "cResurceManager.h"
 
-#include <Python.h>
-#ifdef _DEBUG
-#   define Py_DEBUG
-#endif
-
 using namespace std;
 
 
@@ -174,7 +169,7 @@ int main()
 	sf::Text textFps;
 	textFps.setFont(font);
 	textFps.setCharacterSize(24);
-	textFps.setColor(sf::Color::Red);
+	textFps.setFillColor(sf::Color::Red);
 	textFps.setStyle(sf::Text::Bold);
 	textFps.setString("fps");
 

@@ -11,3 +11,5 @@
 *.lai
 *.la
 *.a
+/packages
+/miner.VC.db
